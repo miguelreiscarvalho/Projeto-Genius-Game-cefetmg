@@ -11,8 +11,6 @@
 #define botao_blue PORTB.RB7 // Botão do LED Azul na Entrada B7
 
 
-//Declaração de Alto Falante
-
 
 int apresent = 0;
 int i;
