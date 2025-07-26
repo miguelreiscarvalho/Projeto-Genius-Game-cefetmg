@@ -1,5 +1,5 @@
 #line 1 "D:/CEFET/2025/Programação Aplicada A Microcontroladores/Projeto-Genius-Game-cefetmg/Projeto META 2025/ProjectMemoryGame.c"
-#line 17 "D:/CEFET/2025/Programação Aplicada A Microcontroladores/Projeto-Genius-Game-cefetmg/Projeto META 2025/ProjectMemoryGame.c"
+#line 15 "D:/CEFET/2025/Programação Aplicada A Microcontroladores/Projeto-Genius-Game-cefetmg/Projeto META 2025/ProjectMemoryGame.c"
 int apresent = 0;
 int i;
 
@@ -25,11 +25,15 @@ void main() {
 
 
 
-  PORTB.RB0  = 1;  PORTB.RB1  = 1;  PORTB.RB2  = 1;  PORTB.RB3  = 1;
+  PORTB.RB0  = 1;  PORTB.RB1  = 1;  PORTB.RB2  = 0;  PORTB.RB3  = 0;
  Sound_Play(132, 300);
  delay_ms(1000);
+
+  PORTB.RB0  = 0;  PORTB.RB1  = 0;  PORTB.RB2  = 1;  PORTB.RB3  = 1;
  Sound_Play(70, 300);
  delay_ms(1200);
+
+  PORTB.RB0  = 1;  PORTB.RB1  = 1;  PORTB.RB2  = 1;  PORTB.RB3  = 1;
  Sound_Play(180, 300);
  delay_ms(1400);
   PORTB.RB0  = 0;  PORTB.RB1  = 0;  PORTB.RB2  = 0;  PORTB.RB3  = 0;

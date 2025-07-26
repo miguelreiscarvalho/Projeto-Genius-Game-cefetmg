@@ -1,11 +1,11 @@
 0	1	mikroCPIC1618.exe -MSF -DBG -pP16F628A -DL -O11111114 -fo4 -N"D:\CEFET\2025\Programação Aplicada A Microcontroladores\Projeto-Genius-Game-cefetmg\Projeto META 2025\ProjectMemoryGame.mcppi" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Defs\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Uses\P16\" -SP"D:\CEFET\2025\Programação Aplicada A Microcontroladores\Projeto-Genius-Game-cefetmg\Projeto META 2025\" -IP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Uses\P16\" "ProjectMemoryGame.c" "__Lib_Math.mcl" "__Lib_MathDouble.mcl" "__Lib_System.mcl" "__Lib_Delays.mcl" "__Lib_Sound.mcl"	 
 hint: 0	1139	Available RAM: 208 [bytes], Available ROM: 2048 [bytes]	 
 diagnostics: 0	122	Compilation Started	ProjectMemoryGame.c
-diagnostics: 125	123	Compiled Successfully	ProjectMemoryGame.c
-diagnostics: 0	127	All files Compiled in 78 ms	 
+diagnostics: 127	123	Compiled Successfully	ProjectMemoryGame.c
+diagnostics: 0	127	All files Compiled in 94 ms	 
 hint: 0	1144	Used RAM (bytes): 23 (11%)  Free RAM (bytes): 185 (89%)	Used RAM (bytes): 23 (11%)  Free RAM (bytes): 185 (89%)
-hint: 0	1144	Used ROM (program words): 1079 (53%)  Free ROM (program words): 969 (47%)	Used ROM (program words): 1079 (53%)  Free ROM (program words): 969 (47%)
+hint: 0	1144	Used ROM (program words): 1087 (53%)  Free ROM (program words): 961 (47%)	Used ROM (program words): 1087 (53%)  Free ROM (program words): 961 (47%)
 diagnostics: 0	125	Project Linked Successfully	ProjectMemoryGame.mcppi
-diagnostics: 0	128	Linked in 31 ms	 
+diagnostics: 0	128	Linked in 15 ms	 
 diagnostics: 0	129	Project 'ProjectMemoryGame.mcppi' completed: 265 ms	 
-diagnostics: 0	103	Finished successfully: 26 jul 2025, 13:06:47	ProjectMemoryGame.mcppi
+diagnostics: 0	103	Finished successfully: 26 jul 2025, 13:14:17	ProjectMemoryGame.mcppi

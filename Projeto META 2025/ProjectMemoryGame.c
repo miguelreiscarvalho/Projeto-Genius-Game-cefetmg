@@ -37,11 +37,15 @@ void main() {
 
 
               // Parte 1: acordes com todos os LEDs
-              led_red = 1; led_yellow = 1; led_green = 1; led_blue = 1;
+              led_red = 1; led_yellow = 1; led_green = 0; led_blue = 0;
               Sound_Play(132, 300);
               delay_ms(1000);
+              // Parte 2: acordes com todos os LEDs
+              led_red = 0; led_yellow = 0; led_green = 1; led_blue = 1;
               Sound_Play(70, 300);
               delay_ms(1200);
+              // Parte 3: acordes com todos os LEDs
+              led_red = 1; led_yellow = 1; led_green = 1; led_blue = 1;
               Sound_Play(180, 300);
               delay_ms(1400);
               led_red = 0; led_yellow = 0; led_green = 0; led_blue = 0;
