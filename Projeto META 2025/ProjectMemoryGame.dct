@@ -266,6 +266,8 @@ setfdz32
 setfov32
 setfun32
 setiov3224
+sound_init
+sound_play
 spbrg
 spen
 spen_bit

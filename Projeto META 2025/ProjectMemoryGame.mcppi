@@ -24,7 +24,8 @@ Count=0
 Count=0
 ActiveImageIndex=-1
 [OPENED_FILES]
-Count=0
+File0=ProjectMemoryGame.c
+Count=1
 [EEPROM]
 Count=0
 [ACTIVE_COMMENTS_FILES]
@@ -40,12 +41,38 @@ Count=0
 [PLDS]
 Count=0
 [Useses]
-Count=0
+File0=Sound
+Count=1
 [EXPANDED_NODES]
 0=ProjectMemoryGame.mcppi
 Count=1
 [LIB_EXPANDED_NODES]
-Count=0
+0=mikroE Libraries
+1=System Libraries
+4=Compact_Flash
+16=Conversions
+56=C_Math
+78=C_Stdlib
+92=C_String
+118=C_Type
+134=EPSON_S1D13700
+167=Glcd
+198=Keypad4x4
+210=Manchester
+220=MemManager
+226=One_Wire
+230=PS2
+233=PWM
+238=RS485
+245=Software_I2C
+252=Software_SPI
+256=Software_UART
+261=Sound
+264=Sprinti
+267=Sprintl
+270=T6963C
+301=Trigonometry
+Count=25
 [PROGRAMMER_TYPE]
 Value=mikroE mikroProg
 [CODEGRIP_OPTIONS]
