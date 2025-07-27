@@ -4,7 +4,7 @@
 
 <item itemtype="MCU" CircId="p16F628-4" mainComp="false" Show_id="true" Show_Val="false" Pos="-224,-148" rotation="0" hflip="1" vflip="1" label="p16F628-4" idLabPos="0,-20" labelrot="0" valLabPos="-16,20" valLabRot="0" Frequency="20 MHz" Program="ProjectMemoryGame.hex" Auto_Load="true" saveEepr="true" Rst_enabled="true" Ext_Osc="true" Wdt_enabled="false" Clk_Out="false" MainMcu="true" SerialMon="-1" />
 
-<item itemtype="AudioOut" CircId="AudioOut-5" mainComp="false" ShowProp="Frequency" Show_id="false" Show_Val="true" Pos="88,-128" rotation="0" hflip="1" vflip="1" label="AudioOut-5" idLabPos="-20,-36" labelrot="0" valLabPos="-16,20" valLabRot="0" Buzzer="false" Impedance="16 Ω" Frequency="1000 kHz" />
+<item itemtype="AudioOut" CircId="AudioOut-5" mainComp="false" ShowProp="Impedance" Show_id="false" Show_Val="true" Pos="88,-128" rotation="0" hflip="1" vflip="1" label="AudioOut-5" idLabPos="-20,-36" labelrot="0" valLabPos="-16,20" valLabRot="0" Buzzer="false" Impedance="8 Ω" Frequency="80000 kHz" />
 
 <item itemtype="Led" CircId="Led-6" mainComp="false" ShowProp="Color" Show_id="false" Show_Val="true" Pos="-308,-28" rotation="90" hflip="1" vflip="1" label="Led-6" idLabPos="-16,-24" labelrot="0" valLabPos="-24.5331,6.2861" valLabRot="0" Color="Red" Grounded="true" Threshold="1.8 V" MaxCurrent="30 mA" Resistance="0.6 Ω" />
 
@@ -56,6 +56,8 @@
 
 <item itemtype="Tunnel" CircId="Tunnel-51" mainComp="false" Show_id="false" Show_Val="false" Pos="-308,-84" rotation="90" hflip="1" vflip="1" label="Tunnel-51" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Name="0" IsBus="false" />
 
+<item itemtype="Rail" CircId="Rail-55" mainComp="false" ShowProp="Voltage" Show_id="false" Show_Val="true" Pos="-40,156" rotation="-90" hflip="1" vflip="1" label="Rail-55" idLabPos="-5,-10" labelrot="-90" valLabPos="-0.0120106,-6.35126" valLabRot="90" Voltage="5 V" />
+
 <item itemtype="Node" CircId="Node-23" mainComp="false" Pos="40,132" />
 
 <item itemtype="Node" CircId="Node-24" mainComp="false" Pos="-12,132" />
@@ -64,17 +66,15 @@
 
 <item itemtype="Node" CircId="Node-26" mainComp="false" Pos="-112,132" />
 
+<item itemtype="Node" CircId="Node-57" mainComp="false" Pos="-40,132" />
+
 <item itemtype="Connector" uid="Connector-3" startpinid="p16F628-4-PORTA0" endpinid="AudioOut-5-lPin" pointList="-184,-132,72,-132,72,-136" />
 
 <item itemtype="Connector" uid="Connector-12" startpinid="p16F628-4-PORTB4" endpinid="Push-18-pinP0" pointList="-184,-76,-184,28,-144,28" />
 
 <item itemtype="Connector" uid="Connector-17" startpinid="Push-18-switch0pinN" endpinid="Resistor-15-lPin" pointList="-112,28,-112,76" />
 
-<item itemtype="Connector" uid="Connector-18" startpinid="Push-19-switch0pinN" endpinid="Resistor-14-lPin" pointList="-64,28,-64,76" />
-
 <item itemtype="Connector" uid="Connector-19" startpinid="Push-20-switch0pinN" endpinid="Resistor-17-lPin" pointList="-12,28,-12,76" />
-
-<item itemtype="Connector" uid="Connector-20" startpinid="Push-21-switch0pinN" endpinid="Resistor-16-lPin" pointList="40,28,40,76" />
 
 <item itemtype="Connector" uid="Connector-21" startpinid="Push-19-pinP0" endpinid="p16F628-4-PORTB5" pointList="-96,28,-96,-84,-184,-84" />
 
@@ -89,8 +89,6 @@
 <item itemtype="Connector" uid="Connector-34" startpinid="Node-24-2" endpinid="Node-23-0" pointList="-12,132,40,132" />
 
 <item itemtype="Connector" uid="Connector-35" startpinid="Resistor-14-rPin" endpinid="Node-25-1" pointList="-64,108,-64,132" />
-
-<item itemtype="Connector" uid="Connector-37" startpinid="Node-25-2" endpinid="Node-24-0" pointList="-64,132,-12,132" />
 
 <item itemtype="Connector" uid="Connector-38" startpinid="Resistor-15-rPin" endpinid="Node-26-1" pointList="-112,108,-112,132" />
 
@@ -122,8 +120,18 @@
 
 <item itemtype="Connector" uid="Connector-85" startpinid="Resistor-48-rPin" endpinid="Led-8-lPin" pointList="-348,-8,-344,-8" />
 
+<item itemtype="Connector" uid="Connector-31" startpinid="Node-23-2" endpinid="AudioOut-5-rPin" pointList="40,132,72,132,72,-128" />
+
 <item itemtype="Connector" uid="Connector-88" startpinid="Rail-1-outnod" endpinid="p16F628-4-PORTA5" pointList="-304,-164,-304,-116,-232,-116" />
 
-<item itemtype="Connector" uid="Connector-31" startpinid="Node-23-2" endpinid="AudioOut-5-rPin" pointList="40,132,72,132,72,-128" />
+<item itemtype="Connector" uid="Connector-103" startpinid="Rail-55-outnod" endpinid="Node-57-1" pointList="-40,140,-40,132" />
+
+<item itemtype="Connector" uid="Connector-104" startpinid="Node-25-2" endpinid="Node-57-0" pointList="-64,132,-40,132" />
+
+<item itemtype="Connector" uid="Connector-105" startpinid="Node-57-2" endpinid="Node-24-0" pointList="-40,132,-12,132" />
+
+<item itemtype="Connector" uid="Connector-18" startpinid="Push-19-switch0pinN" endpinid="Resistor-14-lPin" pointList="-64,28,-64,76" />
+
+<item itemtype="Connector" uid="Connector-20" startpinid="Push-21-switch0pinN" endpinid="Resistor-16-lPin" pointList="40,28,40,76" />
 
 </circuit>
