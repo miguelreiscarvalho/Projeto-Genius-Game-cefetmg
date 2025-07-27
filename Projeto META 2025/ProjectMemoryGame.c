@@ -63,48 +63,79 @@ char j;
 
 // Jogo
 void partida() {
-    while(step < partidas && situacao) {
-        sequencia[step] = rand() % 4;
+    while(step < partidas && situacao) {   // Termina quando as rodadas terminam ou quando o jogador perder
+        sequencia[step] = rand() % 4; // Geração de número aleatório do ultimo passo da rodada atual, limitada em 4: 0 - 3;
 
-        for(j = 0; j <= step; j++) {
-            switch(sequencia[j]) {
-                case 0: led_red = 1; Sound_Play(182, 300); break;
-                case 1: led_yellow = 1; Sound_Play(150, 300); break;
-                case 2: led_blue = 1; Sound_Play(120, 300); break;
-                case 3: led_green = 1; Sound_Play(90, 300); break;
+
+        // Geração de sequência da rodada atual.
+        for(j = 0; j <= step; j++) { // Loop que exibe todos os leds sorteados em cada passo da rodada
+            switch(sequencia[j]) { // Recebe o valor correspondente ao led sorteado no passo atual
+                case 0: led_red = 1; Sound_Play(182, 300); break; // Liga o led vermelho se ele for o sorteado no passo atual
+                case 1: led_yellow = 1; Sound_Play(150, 300); break; // Liga o led yellow se ele for o sorteado no passo atual
+                case 2: led_blue = 1; Sound_Play(120, 300); break; // Liga o led blue se ele for o sorteado no passo atual
+                case 3: led_green = 1; Sound_Play(90, 300); break; // Liga o led green se ele for o sorteado no passo atual
             }
-            delay_ms(1000);
-            led_red = led_yellow = led_green = led_blue = 0;
-            delay_ms(500);
-        }
+            delay_ms(1000); //  Mantém os leds ligados por 1 segundo, OBS: Alterar isso poder influenciar no parâmetro de dificuldade
+            led_red = led_yellow = led_green = led_blue = 0; // Desliga todos os leds.
+            delay_ms(500); // Desliga os leds e mantém os mesmos desligados por 0.5s.
+        } // Fim da exibição da rodada atual
 
-        delay_ms(3000);
-        jogada = 0;
-        espera = 0;
 
-        while(jogada <= step && situacao) {
-            if(!press_button && !espera) {
-                if(botao_red)    { press_button = 1; led_red = 1; Sound_Play(182, 300); if(sequencia[jogada] != 0) situacao = 0; }
-                else if(botao_yellow) { press_button = 1; led_yellow = 1; Sound_Play(150, 300); if(sequencia[jogada] != 1) situacao = 0; }
-                else if(botao_blue)   { press_button = 1; led_blue = 1; Sound_Play(120, 300); if(sequencia[jogada] != 2) situacao = 0; }
-                else if(botao_green)  { press_button = 1; led_green = 1; Sound_Play(90, 300); if(sequencia[jogada] != 3) situacao = 0; }
+        // Jogador
+        // Recebe as entradas realizadas pelo jogador; Botões os quais ele apertou
+        delay_ms(3000); // Aguarda um periodo de 3s após a exibição da sequência da rodada atual
+        jogada = 0; // Demarca qual passo da rodada estamos verificando se o jogador acertou
+        espera = 0; // VARIÁVEL DE SEGURANÇA: Garante que só iremos passar para o próximo passo se o usuário soltar o botão
 
-                if(press_button) { delay_ms(500); espera = 1; }
-            }
-            else if(press_button && espera) {
-                if(!botao_red && !botao_yellow && !botao_blue && !botao_green) {
-                    press_button = 0;
-                    espera = 0;
-                    jogada++;
-                    led_red = led_yellow = led_blue = led_green = 0;
+        while(jogada <= step && situacao) { // Termina quando todos os passos da rodada são executados ou quando o jogador erra a sequência
+        
+            if(!press_button && !espera) { // Entra quando o jogador aperta o botão e só entra aqui de novo, quando o usúario soltar o botão
+                                           // Garante que não seja contabilizado mais de um click no botão.
+                
+                if(botao_red)    { // Verifica se o botão pressionado foi o vermelho
+                    press_button = 1; // Marca o botão como pressionado
+                    led_red = 1; // Liga o led vermelho
+                    Sound_Play(182, 300); // Executa o som correspondente ao led vermelho
+                    if(sequencia[jogada] != 0) situacao = 0; // Verifica se o jogador errou o botão do passo atual, se sim a rodada termina - GAME OVER
+                }
+                else if(botao_yellow) { // Verifica se o botão pressionado foi o amarelho
+                    press_button = 1; // Marca o botão como pressionado
+                    led_yellow = 1; // Liga o led amarelo
+                    Sound_Play(150, 300); // Executa o som correspondente ao led amarelo
+                    if(sequencia[jogada] != 1) situacao = 0; // Verifica se o jogador errou o botão do passo atual, se sim a rodada termina - GAME OVER
+                }
+                else if(botao_blue)   { // Verifica se o botão pressionado foi o azul
+                    press_button = 1; // Marca o botão como pressionado
+                    led_blue = 1; // Liga o led azul
+                    Sound_Play(120, 300); // Executa o som correspondente ao led azul
+                    if(sequencia[jogada] != 2) situacao = 0; // Verifica se o jogador errou o botão do passo atual, se sim a rodada termina - GAME OVER
+                }
+                else if(botao_green)  { // Verifica se o botão pressionado foi o verde
+                    press_button = 1; // Marca o botão como pressionado
+                    led_green = 1; // Liga o led verde
+                    Sound_Play(90, 300); // Executa o som correspondente ao led verde
+                    if(sequencia[jogada] != 3) situacao = 0; // Verifica se o jogador errou o botão do passo atual, se sim a rodada termina - GAME OVER
+                }
+
+                if(press_button) { // Verifica se o botão foi solto, garantindo o funcionamento ideal da logica de verificação sem repetições
+                    delay_ms(500); // Garante que um possível mal contato no circuito não contabilize o botão como sendo pressionado novamente.
+                    espera = 1; // Marca espera como 1 - true: possibilitando o retorno de verificação de botão pressionado
                 }
             }
-        }
+            else if(press_button && espera) { // Verifica se o usuario pressionou o botão e se ele ainda esta pressionado
+                if(!botao_red && !botao_yellow && !botao_blue && !botao_green) { // Verifica se todos so botões esta desligados
+                    press_button = 0; // Marca o estado como botão nao pressionado
+                    espera = 0; // Desativa a espera pela resposta do botão
+                    jogada++; // Incrementa +1, se o passo da rodada foi terminado
+                    led_red = led_yellow = led_blue = led_green = 0; // Desliga todos os leds
+                }
+            }
+        } // Fim da rodada do jogador
 
         delay_ms(3000);
-        step++;
+        step++; // Incrementa mais uma rodada
         delay_ms(2000);
-    }
+    } // Fim da rodada
 }
 
 void reseta_led(){
