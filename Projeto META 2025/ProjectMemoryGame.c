@@ -27,29 +27,29 @@ void apresentacao() {
     delay_ms(500);
 
     led_red = 1; led_yellow = 1; led_green = 0; led_blue = 0;
-    Sound_Play(132, 1000); delay_ms(1000);
+    Sound_Play(132, 800); delay_ms(800);
 
     led_red = 0; led_yellow = 0; led_green = 1; led_blue = 1;
-    Sound_Play(70, 1200); delay_ms(1200);
+    Sound_Play(70, 1000); delay_ms(1000);
 
     led_red = 1; led_yellow = 1; led_green = 1; led_blue = 1;
-    Sound_Play(180, 1400); delay_ms(1400);
+    Sound_Play(180, 1200); delay_ms(1200);
 
     led_red = 0; led_yellow = 0; led_green = 0; led_blue = 0;
     delay_ms(450);
 
     for (i = 0; i < 5; i++) {
         led_red = 1; led_green = 0;
-        Sound_Play(41, 160); delay_ms(160);
+        Sound_Play(41, 180); delay_ms(180);
 
         led_red = 0; led_blue = 1;
-        Sound_Play(85, 160); delay_ms(160);
+        Sound_Play(85, 180); delay_ms(180);
 
         led_blue = 0; led_yellow = 1;
-        Sound_Play(116, 160); delay_ms(160);
+        Sound_Play(116, 180); delay_ms(180);
 
         led_yellow = 0; led_green = 1;
-        Sound_Play(182, 300); delay_ms(300);
+        Sound_Play(182, 180); delay_ms(180);
     }
 
     for (i = 0; i < 6; i++) {
@@ -168,4 +168,3 @@ void main() {
       }
     }
 }
-

@@ -16,29 +16,29 @@ void apresentacao() {
  delay_ms(500);
 
   PORTB.RB0  = 1;  PORTB.RB1  = 1;  PORTB.RB2  = 0;  PORTB.RB3  = 0;
- Sound_Play(132, 1000); delay_ms(1000);
+ Sound_Play(132, 800); delay_ms(800);
 
   PORTB.RB0  = 0;  PORTB.RB1  = 0;  PORTB.RB2  = 1;  PORTB.RB3  = 1;
- Sound_Play(70, 1200); delay_ms(1200);
+ Sound_Play(70, 1000); delay_ms(1000);
 
   PORTB.RB0  = 1;  PORTB.RB1  = 1;  PORTB.RB2  = 1;  PORTB.RB3  = 1;
- Sound_Play(180, 1400); delay_ms(1400);
+ Sound_Play(180, 1200); delay_ms(1200);
 
   PORTB.RB0  = 0;  PORTB.RB1  = 0;  PORTB.RB2  = 0;  PORTB.RB3  = 0;
  delay_ms(450);
 
  for (i = 0; i < 5; i++) {
   PORTB.RB0  = 1;  PORTB.RB2  = 0;
- Sound_Play(41, 160); delay_ms(160);
+ Sound_Play(41, 180); delay_ms(180);
 
   PORTB.RB0  = 0;  PORTB.RB3  = 1;
- Sound_Play(85, 160); delay_ms(160);
+ Sound_Play(85, 180); delay_ms(180);
 
   PORTB.RB3  = 0;  PORTB.RB1  = 1;
- Sound_Play(116, 160); delay_ms(160);
+ Sound_Play(116, 180); delay_ms(180);
 
   PORTB.RB1  = 0;  PORTB.RB2  = 1;
- Sound_Play(182, 300); delay_ms(300);
+ Sound_Play(182, 180); delay_ms(180);
  }
 
  for (i = 0; i < 6; i++) {

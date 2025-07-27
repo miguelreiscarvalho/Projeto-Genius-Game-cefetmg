@@ -43,10 +43,38 @@ L_apresentacao0:
 	BSF        PORTB+0, 1
 	BCF        PORTB+0, 2
 	BCF        PORTB+0, 3
-;ProjectMemoryGame.c,30 :: 		Sound_Play(132, 1000); delay_ms(1000);
+;ProjectMemoryGame.c,30 :: 		Sound_Play(132, 800); delay_ms(800);
 	MOVLW      132
 	MOVWF      FARG_Sound_Play_freq_in_hz+0
 	CLRF       FARG_Sound_Play_freq_in_hz+1
+	MOVLW      32
+	MOVWF      FARG_Sound_Play_duration_ms+0
+	MOVLW      3
+	MOVWF      FARG_Sound_Play_duration_ms+1
+	CALL       _Sound_Play+0
+	MOVLW      5
+	MOVWF      R11+0
+	MOVLW      15
+	MOVWF      R12+0
+	MOVLW      241
+	MOVWF      R13+0
+L_apresentacao1:
+	DECFSZ     R13+0, 1
+	GOTO       L_apresentacao1
+	DECFSZ     R12+0, 1
+	GOTO       L_apresentacao1
+	DECFSZ     R11+0, 1
+	GOTO       L_apresentacao1
+;ProjectMemoryGame.c,32 :: 		led_red = 0; led_yellow = 0; led_green = 1; led_blue = 1;
+	BCF        PORTB+0, 0
+	BCF        PORTB+0, 1
+	BSF        PORTB+0, 2
+	BSF        PORTB+0, 3
+;ProjectMemoryGame.c,33 :: 		Sound_Play(70, 1000); delay_ms(1000);
+	MOVLW      70
+	MOVWF      FARG_Sound_Play_freq_in_hz+0
+	MOVLW      0
+	MOVWF      FARG_Sound_Play_freq_in_hz+1
 	MOVLW      232
 	MOVWF      FARG_Sound_Play_duration_ms+0
 	MOVLW      3
@@ -58,25 +86,24 @@ L_apresentacao0:
 	MOVWF      R12+0
 	MOVLW      173
 	MOVWF      R13+0
-L_apresentacao1:
+L_apresentacao2:
 	DECFSZ     R13+0, 1
-	GOTO       L_apresentacao1
+	GOTO       L_apresentacao2
 	DECFSZ     R12+0, 1
-	GOTO       L_apresentacao1
+	GOTO       L_apresentacao2
 	DECFSZ     R11+0, 1
-	GOTO       L_apresentacao1
+	GOTO       L_apresentacao2
 	NOP
 	NOP
-;ProjectMemoryGame.c,32 :: 		led_red = 0; led_yellow = 0; led_green = 1; led_blue = 1;
-	BCF        PORTB+0, 0
-	BCF        PORTB+0, 1
+;ProjectMemoryGame.c,35 :: 		led_red = 1; led_yellow = 1; led_green = 1; led_blue = 1;
+	BSF        PORTB+0, 0
+	BSF        PORTB+0, 1
 	BSF        PORTB+0, 2
 	BSF        PORTB+0, 3
-;ProjectMemoryGame.c,33 :: 		Sound_Play(70, 1200); delay_ms(1200);
-	MOVLW      70
+;ProjectMemoryGame.c,36 :: 		Sound_Play(180, 1200); delay_ms(1200);
+	MOVLW      180
 	MOVWF      FARG_Sound_Play_freq_in_hz+0
-	MOVLW      0
-	MOVWF      FARG_Sound_Play_freq_in_hz+1
+	CLRF       FARG_Sound_Play_freq_in_hz+1
 	MOVLW      176
 	MOVWF      FARG_Sound_Play_duration_ms+0
 	MOVLW      4
@@ -88,34 +115,6 @@ L_apresentacao1:
 	MOVWF      R12+0
 	MOVLW      106
 	MOVWF      R13+0
-L_apresentacao2:
-	DECFSZ     R13+0, 1
-	GOTO       L_apresentacao2
-	DECFSZ     R12+0, 1
-	GOTO       L_apresentacao2
-	DECFSZ     R11+0, 1
-	GOTO       L_apresentacao2
-	NOP
-;ProjectMemoryGame.c,35 :: 		led_red = 1; led_yellow = 1; led_green = 1; led_blue = 1;
-	BSF        PORTB+0, 0
-	BSF        PORTB+0, 1
-	BSF        PORTB+0, 2
-	BSF        PORTB+0, 3
-;ProjectMemoryGame.c,36 :: 		Sound_Play(180, 1400); delay_ms(1400);
-	MOVLW      180
-	MOVWF      FARG_Sound_Play_freq_in_hz+0
-	CLRF       FARG_Sound_Play_freq_in_hz+1
-	MOVLW      120
-	MOVWF      FARG_Sound_Play_duration_ms+0
-	MOVLW      5
-	MOVWF      FARG_Sound_Play_duration_ms+1
-	CALL       _Sound_Play+0
-	MOVLW      8
-	MOVWF      R11+0
-	MOVLW      27
-	MOVWF      R12+0
-	MOVLW      39
-	MOVWF      R13+0
 L_apresentacao3:
 	DECFSZ     R13+0, 1
 	GOTO       L_apresentacao3
@@ -123,6 +122,7 @@ L_apresentacao3:
 	GOTO       L_apresentacao3
 	DECFSZ     R11+0, 1
 	GOTO       L_apresentacao3
+	NOP
 ;ProjectMemoryGame.c,38 :: 		led_red = 0; led_yellow = 0; led_green = 0; led_blue = 0;
 	BCF        PORTB+0, 0
 	BCF        PORTB+0, 1
@@ -153,96 +153,85 @@ L_apresentacao5:
 ;ProjectMemoryGame.c,42 :: 		led_red = 1; led_green = 0;
 	BSF        PORTB+0, 0
 	BCF        PORTB+0, 2
-;ProjectMemoryGame.c,43 :: 		Sound_Play(41, 160); delay_ms(160);
+;ProjectMemoryGame.c,43 :: 		Sound_Play(41, 180); delay_ms(180);
 	MOVLW      41
 	MOVWF      FARG_Sound_Play_freq_in_hz+0
 	MOVLW      0
 	MOVWF      FARG_Sound_Play_freq_in_hz+1
-	MOVLW      160
+	MOVLW      180
 	MOVWF      FARG_Sound_Play_duration_ms+0
 	CLRF       FARG_Sound_Play_duration_ms+1
 	CALL       _Sound_Play+0
-	MOVLW      208
+	MOVLW      234
 	MOVWF      R12+0
-	MOVLW      201
+	MOVLW      195
 	MOVWF      R13+0
 L_apresentacao8:
 	DECFSZ     R13+0, 1
 	GOTO       L_apresentacao8
 	DECFSZ     R12+0, 1
 	GOTO       L_apresentacao8
-	NOP
-	NOP
 ;ProjectMemoryGame.c,45 :: 		led_red = 0; led_blue = 1;
 	BCF        PORTB+0, 0
 	BSF        PORTB+0, 3
-;ProjectMemoryGame.c,46 :: 		Sound_Play(85, 160); delay_ms(160);
+;ProjectMemoryGame.c,46 :: 		Sound_Play(85, 180); delay_ms(180);
 	MOVLW      85
 	MOVWF      FARG_Sound_Play_freq_in_hz+0
 	MOVLW      0
 	MOVWF      FARG_Sound_Play_freq_in_hz+1
-	MOVLW      160
+	MOVLW      180
 	MOVWF      FARG_Sound_Play_duration_ms+0
 	CLRF       FARG_Sound_Play_duration_ms+1
 	CALL       _Sound_Play+0
-	MOVLW      208
+	MOVLW      234
 	MOVWF      R12+0
-	MOVLW      201
+	MOVLW      195
 	MOVWF      R13+0
 L_apresentacao9:
 	DECFSZ     R13+0, 1
 	GOTO       L_apresentacao9
 	DECFSZ     R12+0, 1
 	GOTO       L_apresentacao9
-	NOP
-	NOP
 ;ProjectMemoryGame.c,48 :: 		led_blue = 0; led_yellow = 1;
 	BCF        PORTB+0, 3
 	BSF        PORTB+0, 1
-;ProjectMemoryGame.c,49 :: 		Sound_Play(116, 160); delay_ms(160);
+;ProjectMemoryGame.c,49 :: 		Sound_Play(116, 180); delay_ms(180);
 	MOVLW      116
 	MOVWF      FARG_Sound_Play_freq_in_hz+0
 	MOVLW      0
 	MOVWF      FARG_Sound_Play_freq_in_hz+1
-	MOVLW      160
+	MOVLW      180
 	MOVWF      FARG_Sound_Play_duration_ms+0
 	CLRF       FARG_Sound_Play_duration_ms+1
 	CALL       _Sound_Play+0
-	MOVLW      208
+	MOVLW      234
 	MOVWF      R12+0
-	MOVLW      201
+	MOVLW      195
 	MOVWF      R13+0
 L_apresentacao10:
 	DECFSZ     R13+0, 1
 	GOTO       L_apresentacao10
 	DECFSZ     R12+0, 1
 	GOTO       L_apresentacao10
-	NOP
-	NOP
 ;ProjectMemoryGame.c,51 :: 		led_yellow = 0; led_green = 1;
 	BCF        PORTB+0, 1
 	BSF        PORTB+0, 2
-;ProjectMemoryGame.c,52 :: 		Sound_Play(182, 300); delay_ms(300);
+;ProjectMemoryGame.c,52 :: 		Sound_Play(182, 180); delay_ms(180);
 	MOVLW      182
 	MOVWF      FARG_Sound_Play_freq_in_hz+0
 	CLRF       FARG_Sound_Play_freq_in_hz+1
-	MOVLW      44
+	MOVLW      180
 	MOVWF      FARG_Sound_Play_duration_ms+0
-	MOVLW      1
-	MOVWF      FARG_Sound_Play_duration_ms+1
+	CLRF       FARG_Sound_Play_duration_ms+1
 	CALL       _Sound_Play+0
-	MOVLW      2
-	MOVWF      R11+0
-	MOVLW      134
+	MOVLW      234
 	MOVWF      R12+0
-	MOVLW      153
+	MOVLW      195
 	MOVWF      R13+0
 L_apresentacao11:
 	DECFSZ     R13+0, 1
 	GOTO       L_apresentacao11
 	DECFSZ     R12+0, 1
-	GOTO       L_apresentacao11
-	DECFSZ     R11+0, 1
 	GOTO       L_apresentacao11
 ;ProjectMemoryGame.c,41 :: 		for (i = 0; i < 5; i++) {
 	INCF       _i+0, 1
