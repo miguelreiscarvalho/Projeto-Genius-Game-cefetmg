@@ -4,13 +4,9 @@ _reseta_variavel:
 ;ProjectMemoryGame.c,20 :: 		void reseta_variavel(){
 ;ProjectMemoryGame.c,21 :: 		step = 0, jogada = 0, situacao = 1;
 	CLRF       _step+0
-	CLRF       _step+1
 	CLRF       _jogada+0
-	CLRF       _jogada+1
 	MOVLW      1
 	MOVWF      _situacao+0
-	MOVLW      0
-	MOVWF      _situacao+1
 ;ProjectMemoryGame.c,22 :: 		press_button = 0, espera = 0;
 	CLRF       _press_button+0
 	CLRF       _espera+0
@@ -341,32 +337,16 @@ _partida:
 ;ProjectMemoryGame.c,65 :: 		void partida() {
 ;ProjectMemoryGame.c,66 :: 		while(step < partidas && situacao) {
 L_partida17:
-	MOVLW      128
-	XORWF      _step+1, 0
-	MOVWF      R0+0
-	MOVLW      128
-	SUBWF      R0+0, 0
-	BTFSS      STATUS+0, 2
-	GOTO       L__partida94
 	MOVF       _partidas+0, 0
 	SUBWF      _step+0, 0
-L__partida94:
 	BTFSC      STATUS+0, 0
 	GOTO       L_partida18
 	MOVF       _situacao+0, 0
-	IORWF      _situacao+1, 0
 	BTFSC      STATUS+0, 2
 	GOTO       L_partida18
 L__partida78:
 ;ProjectMemoryGame.c,67 :: 		sequencia[step] = rand() % 4;
 	MOVF       _step+0, 0
-	MOVWF      R0+0
-	MOVF       _step+1, 0
-	MOVWF      R0+1
-	RLF        R0+0, 1
-	RLF        R0+1, 1
-	BCF        R0+0, 0
-	MOVF       R0+0, 0
 	ADDLW      _sequencia+0
 	MOVWF      FLOC__partida+0
 	CALL       _rand+0
@@ -383,30 +363,15 @@ L__partida78:
 	MOVWF      FSR
 	MOVF       R0+0, 0
 	MOVWF      INDF+0
-	MOVF       R0+1, 0
-	INCF       FSR, 1
-	MOVWF      INDF+0
 ;ProjectMemoryGame.c,69 :: 		for(j = 0; j <= step; j++) {
 	CLRF       _j+0
 L_partida21:
-	MOVLW      128
-	XORWF      _step+1, 0
-	MOVWF      R0+0
-	MOVLW      128
-	SUBWF      R0+0, 0
-	BTFSS      STATUS+0, 2
-	GOTO       L__partida95
 	MOVF       _j+0, 0
 	SUBWF      _step+0, 0
-L__partida95:
 	BTFSS      STATUS+0, 0
 	GOTO       L_partida22
 ;ProjectMemoryGame.c,70 :: 		switch(sequencia[j]) {
 	MOVF       _j+0, 0
-	MOVWF      R0+0
-	RLF        R0+0, 1
-	BCF        R0+0, 0
-	MOVF       R0+0, 0
 	ADDLW      _sequencia+0
 	MOVWF      FLOC__partida+0
 	GOTO       L_partida24
@@ -465,65 +430,25 @@ L_partida24:
 	MOVF       FLOC__partida+0, 0
 	MOVWF      FSR
 	MOVF       INDF+0, 0
-	MOVWF      R1+0
-	INCF       FSR, 1
-	MOVF       INDF+0, 0
-	MOVWF      R1+1
-	MOVLW      0
-	XORWF      R1+1, 0
-	BTFSS      STATUS+0, 2
-	GOTO       L__partida96
-	MOVLW      0
-	XORWF      R1+0, 0
-L__partida96:
+	XORLW      0
 	BTFSC      STATUS+0, 2
 	GOTO       L_partida26
 	MOVF       FLOC__partida+0, 0
 	MOVWF      FSR
 	MOVF       INDF+0, 0
-	MOVWF      R1+0
-	INCF       FSR, 1
-	MOVF       INDF+0, 0
-	MOVWF      R1+1
-	MOVLW      0
-	XORWF      R1+1, 0
-	BTFSS      STATUS+0, 2
-	GOTO       L__partida97
-	MOVLW      1
-	XORWF      R1+0, 0
-L__partida97:
+	XORLW      1
 	BTFSC      STATUS+0, 2
 	GOTO       L_partida27
 	MOVF       FLOC__partida+0, 0
 	MOVWF      FSR
 	MOVF       INDF+0, 0
-	MOVWF      R1+0
-	INCF       FSR, 1
-	MOVF       INDF+0, 0
-	MOVWF      R1+1
-	MOVLW      0
-	XORWF      R1+1, 0
-	BTFSS      STATUS+0, 2
-	GOTO       L__partida98
-	MOVLW      2
-	XORWF      R1+0, 0
-L__partida98:
+	XORLW      2
 	BTFSC      STATUS+0, 2
 	GOTO       L_partida28
 	MOVF       FLOC__partida+0, 0
 	MOVWF      FSR
 	MOVF       INDF+0, 0
-	MOVWF      R1+0
-	INCF       FSR, 1
-	MOVF       INDF+0, 0
-	MOVWF      R1+1
-	MOVLW      0
-	XORWF      R1+1, 0
-	BTFSS      STATUS+0, 2
-	GOTO       L__partida99
-	MOVLW      3
-	XORWF      R1+0, 0
-L__partida99:
+	XORLW      3
 	BTFSC      STATUS+0, 2
 	GOTO       L_partida29
 L_partida25:
@@ -546,26 +471,26 @@ L_partida30:
 ;ProjectMemoryGame.c,77 :: 		led_red = led_yellow = led_green = led_blue = 0;
 	BCF        PORTB+0, 3
 	BTFSC      PORTB+0, 3
-	GOTO       L__partida100
+	GOTO       L__partida94
 	BCF        PORTB+0, 2
-	GOTO       L__partida101
-L__partida100:
+	GOTO       L__partida95
+L__partida94:
 	BSF        PORTB+0, 2
-L__partida101:
+L__partida95:
 	BTFSC      PORTB+0, 2
-	GOTO       L__partida102
+	GOTO       L__partida96
 	BCF        PORTB+0, 1
-	GOTO       L__partida103
-L__partida102:
+	GOTO       L__partida97
+L__partida96:
 	BSF        PORTB+0, 1
-L__partida103:
+L__partida97:
 	BTFSC      PORTB+0, 1
-	GOTO       L__partida104
+	GOTO       L__partida98
 	BCF        PORTB+0, 0
-	GOTO       L__partida105
-L__partida104:
+	GOTO       L__partida99
+L__partida98:
 	BSF        PORTB+0, 0
-L__partida105:
+L__partida99:
 ;ProjectMemoryGame.c,78 :: 		delay_ms(500);
 	MOVLW      3
 	MOVWF      R11+0
@@ -605,26 +530,15 @@ L_partida32:
 	NOP
 ;ProjectMemoryGame.c,82 :: 		jogada = 0;
 	CLRF       _jogada+0
-	CLRF       _jogada+1
 ;ProjectMemoryGame.c,83 :: 		espera = 0;
 	CLRF       _espera+0
 ;ProjectMemoryGame.c,85 :: 		while(jogada <= step && situacao) {
 L_partida33:
-	MOVLW      128
-	XORWF      _step+1, 0
-	MOVWF      R0+0
-	MOVLW      128
-	XORWF      _jogada+1, 0
-	SUBWF      R0+0, 0
-	BTFSS      STATUS+0, 2
-	GOTO       L__partida106
 	MOVF       _jogada+0, 0
 	SUBWF      _step+0, 0
-L__partida106:
 	BTFSS      STATUS+0, 0
 	GOTO       L_partida34
 	MOVF       _situacao+0, 0
-	IORWF      _situacao+1, 0
 	BTFSC      STATUS+0, 2
 	GOTO       L_partida34
 L__partida77:
@@ -651,31 +565,13 @@ L__partida76:
 	MOVWF      FARG_Sound_Play_duration_ms+1
 	CALL       _Sound_Play+0
 	MOVF       _jogada+0, 0
-	MOVWF      R0+0
-	MOVF       _jogada+1, 0
-	MOVWF      R0+1
-	RLF        R0+0, 1
-	RLF        R0+1, 1
-	BCF        R0+0, 0
-	MOVF       R0+0, 0
 	ADDLW      _sequencia+0
 	MOVWF      FSR
 	MOVF       INDF+0, 0
-	MOVWF      R1+0
-	INCF       FSR, 1
-	MOVF       INDF+0, 0
-	MOVWF      R1+1
-	MOVLW      0
-	XORWF      R1+1, 0
-	BTFSS      STATUS+0, 2
-	GOTO       L__partida107
-	MOVLW      0
-	XORWF      R1+0, 0
-L__partida107:
+	XORLW      0
 	BTFSC      STATUS+0, 2
 	GOTO       L_partida41
 	CLRF       _situacao+0
-	CLRF       _situacao+1
 L_partida41:
 	GOTO       L_partida42
 L_partida40:
@@ -694,31 +590,13 @@ L_partida40:
 	MOVWF      FARG_Sound_Play_duration_ms+1
 	CALL       _Sound_Play+0
 	MOVF       _jogada+0, 0
-	MOVWF      R0+0
-	MOVF       _jogada+1, 0
-	MOVWF      R0+1
-	RLF        R0+0, 1
-	RLF        R0+1, 1
-	BCF        R0+0, 0
-	MOVF       R0+0, 0
 	ADDLW      _sequencia+0
 	MOVWF      FSR
 	MOVF       INDF+0, 0
-	MOVWF      R1+0
-	INCF       FSR, 1
-	MOVF       INDF+0, 0
-	MOVWF      R1+1
-	MOVLW      0
-	XORWF      R1+1, 0
-	BTFSS      STATUS+0, 2
-	GOTO       L__partida108
-	MOVLW      1
-	XORWF      R1+0, 0
-L__partida108:
+	XORLW      1
 	BTFSC      STATUS+0, 2
 	GOTO       L_partida44
 	CLRF       _situacao+0
-	CLRF       _situacao+1
 L_partida44:
 	GOTO       L_partida45
 L_partida43:
@@ -738,31 +616,13 @@ L_partida43:
 	MOVWF      FARG_Sound_Play_duration_ms+1
 	CALL       _Sound_Play+0
 	MOVF       _jogada+0, 0
-	MOVWF      R0+0
-	MOVF       _jogada+1, 0
-	MOVWF      R0+1
-	RLF        R0+0, 1
-	RLF        R0+1, 1
-	BCF        R0+0, 0
-	MOVF       R0+0, 0
 	ADDLW      _sequencia+0
 	MOVWF      FSR
 	MOVF       INDF+0, 0
-	MOVWF      R1+0
-	INCF       FSR, 1
-	MOVF       INDF+0, 0
-	MOVWF      R1+1
-	MOVLW      0
-	XORWF      R1+1, 0
-	BTFSS      STATUS+0, 2
-	GOTO       L__partida109
-	MOVLW      2
-	XORWF      R1+0, 0
-L__partida109:
+	XORLW      2
 	BTFSC      STATUS+0, 2
 	GOTO       L_partida47
 	CLRF       _situacao+0
-	CLRF       _situacao+1
 L_partida47:
 	GOTO       L_partida48
 L_partida46:
@@ -782,31 +642,13 @@ L_partida46:
 	MOVWF      FARG_Sound_Play_duration_ms+1
 	CALL       _Sound_Play+0
 	MOVF       _jogada+0, 0
-	MOVWF      R0+0
-	MOVF       _jogada+1, 0
-	MOVWF      R0+1
-	RLF        R0+0, 1
-	RLF        R0+1, 1
-	BCF        R0+0, 0
-	MOVF       R0+0, 0
 	ADDLW      _sequencia+0
 	MOVWF      FSR
 	MOVF       INDF+0, 0
-	MOVWF      R1+0
-	INCF       FSR, 1
-	MOVF       INDF+0, 0
-	MOVWF      R1+1
-	MOVLW      0
-	XORWF      R1+1, 0
-	BTFSS      STATUS+0, 2
-	GOTO       L__partida110
-	MOVLW      3
-	XORWF      R1+0, 0
-L__partida110:
+	XORLW      3
 	BTFSC      STATUS+0, 2
 	GOTO       L_partida50
 	CLRF       _situacao+0
-	CLRF       _situacao+1
 L_partida50:
 L_partida49:
 L_partida48:
@@ -861,31 +703,29 @@ L__partida74:
 	CLRF       _espera+0
 ;ProjectMemoryGame.c,98 :: 		jogada++;
 	INCF       _jogada+0, 1
-	BTFSC      STATUS+0, 2
-	INCF       _jogada+1, 1
 ;ProjectMemoryGame.c,99 :: 		led_red = led_yellow = led_blue = led_green = 0;
 	BCF        PORTB+0, 2
 	BTFSC      PORTB+0, 2
-	GOTO       L__partida111
+	GOTO       L__partida100
 	BCF        PORTB+0, 3
-	GOTO       L__partida112
-L__partida111:
+	GOTO       L__partida101
+L__partida100:
 	BSF        PORTB+0, 3
-L__partida112:
+L__partida101:
 	BTFSC      PORTB+0, 3
-	GOTO       L__partida113
+	GOTO       L__partida102
 	BCF        PORTB+0, 1
-	GOTO       L__partida114
-L__partida113:
+	GOTO       L__partida103
+L__partida102:
 	BSF        PORTB+0, 1
-L__partida114:
+L__partida103:
 	BTFSC      PORTB+0, 1
-	GOTO       L__partida115
+	GOTO       L__partida104
 	BCF        PORTB+0, 0
-	GOTO       L__partida116
-L__partida115:
+	GOTO       L__partida105
+L__partida104:
 	BSF        PORTB+0, 0
-L__partida116:
+L__partida105:
 ;ProjectMemoryGame.c,100 :: 		}
 L_partida59:
 ;ProjectMemoryGame.c,101 :: 		}
@@ -912,8 +752,6 @@ L_partida60:
 	NOP
 ;ProjectMemoryGame.c,105 :: 		step++;
 	INCF       _step+0, 1
-	BTFSC      STATUS+0, 2
-	INCF       _step+1, 1
 ;ProjectMemoryGame.c,106 :: 		delay_ms(2000);
 	MOVLW      11
 	MOVWF      R11+0
@@ -1040,7 +878,6 @@ L_main67:
 	CALL       _partida+0
 ;ProjectMemoryGame.c,146 :: 		if(situacao) { // vitória
 	MOVF       _situacao+0, 0
-	IORWF      _situacao+1, 0
 	BTFSC      STATUS+0, 2
 	GOTO       L_main68
 ;ProjectMemoryGame.c,147 :: 		Sound_Play(70, 300);
@@ -1116,13 +953,9 @@ L_main71:
 	GOTO       L_main71
 ;ProjectMemoryGame.c,153 :: 		step = 0, jogada = 0, situacao = 1;
 	CLRF       _step+0
-	CLRF       _step+1
 	CLRF       _jogada+0
-	CLRF       _jogada+1
 	MOVLW      1
 	MOVWF      _situacao+0
-	MOVLW      0
-	MOVWF      _situacao+1
 ;ProjectMemoryGame.c,154 :: 		press_button = 0, espera = 0;
 	CLRF       _press_button+0
 	CLRF       _espera+0

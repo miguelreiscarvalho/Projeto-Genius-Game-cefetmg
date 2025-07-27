@@ -1,7 +1,7 @@
 #line 1 "D:/CEFET/2025/Programação Aplicada A Microcontroladores/Projeto-Genius-Game-cefetmg/Projeto META 2025/ProjectMemoryGame.c"
 #line 14 "D:/CEFET/2025/Programação Aplicada A Microcontroladores/Projeto-Genius-Game-cefetmg/Projeto META 2025/ProjectMemoryGame.c"
-int sequencia[20];
-int step = 0, jogada = 0, situacao = 1;
+char sequencia[20];
+char step = 0, jogada = 0, situacao = 1;
 char press_button = 0, espera = 0;
 char i;
 char partidas = 3;

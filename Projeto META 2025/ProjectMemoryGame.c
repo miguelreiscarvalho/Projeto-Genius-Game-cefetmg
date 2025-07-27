@@ -11,8 +11,8 @@
 #define botao_blue    PORTB.RB7
 
 // Variáveis
-int sequencia[20];
-int step = 0, jogada = 0, situacao = 1;
+char sequencia[20];
+char step = 0, jogada = 0, situacao = 1;
 char press_button = 0, espera = 0;
 char i;
 char partidas = 3;
