@@ -1,6 +1,6 @@
 #line 1 "D:/CEFET/2025/Programação Aplicada A Microcontroladores/Projeto-Genius-Game-cefetmg/Projeto META 2025/ProjectMemoryGame.c"
 #line 14 "D:/CEFET/2025/Programação Aplicada A Microcontroladores/Projeto-Genius-Game-cefetmg/Projeto META 2025/ProjectMemoryGame.c"
-char sequencia[20];
+int sequencia[20];
 char step = 0, jogada = 0, situacao = 1;
 char press_button = 0, espera = 0;
 char i;
@@ -55,6 +55,8 @@ void partida() {
  while(step < partidas && situacao) {
  sequencia[step] = rand() % 4;
 
+
+
  for(j = 0; j <= step; j++) {
  switch(sequencia[j]) {
  case 0:  PORTB.RB0  = 1; Sound_Play(182, 300); break;
@@ -67,18 +69,47 @@ void partida() {
  delay_ms(500);
  }
 
+
+
+
  delay_ms(3000);
  jogada = 0;
  espera = 0;
 
  while(jogada <= step && situacao) {
- if(!press_button && !espera) {
- if( PORTB.RB4 ) { press_button = 1;  PORTB.RB0  = 1; Sound_Play(182, 300); if(sequencia[jogada] != 0) situacao = 0; }
- else if( PORTB.RB5 ) { press_button = 1;  PORTB.RB1  = 1; Sound_Play(150, 300); if(sequencia[jogada] != 1) situacao = 0; }
- else if( PORTB.RB7 ) { press_button = 1;  PORTB.RB3  = 1; Sound_Play(120, 300); if(sequencia[jogada] != 2) situacao = 0; }
- else if( PORTB.RB6 ) { press_button = 1;  PORTB.RB2  = 1; Sound_Play(90, 300); if(sequencia[jogada] != 3) situacao = 0; }
 
- if(press_button) { delay_ms(500); espera = 1; }
+ if(!press_button && !espera) {
+
+
+ if( PORTB.RB4 ) {
+ press_button = 1;
+  PORTB.RB0  = 1;
+ Sound_Play(182, 300);
+ if(sequencia[jogada] != 0) situacao = 0;
+ }
+ else if( PORTB.RB5 ) {
+ press_button = 1;
+  PORTB.RB1  = 1;
+ Sound_Play(150, 300);
+ if(sequencia[jogada] != 1) situacao = 0;
+ }
+ else if( PORTB.RB7 ) {
+ press_button = 1;
+  PORTB.RB3  = 1;
+ Sound_Play(120, 300);
+ if(sequencia[jogada] != 2) situacao = 0;
+ }
+ else if( PORTB.RB6 ) {
+ press_button = 1;
+  PORTB.RB2  = 1;
+ Sound_Play(90, 300);
+ if(sequencia[jogada] != 3) situacao = 0;
+ }
+
+ if(press_button) {
+ delay_ms(500);
+ espera = 1;
+ }
  }
  else if(press_button && espera) {
  if(! PORTB.RB4  && ! PORTB.RB5  && ! PORTB.RB7  && ! PORTB.RB6 ) {

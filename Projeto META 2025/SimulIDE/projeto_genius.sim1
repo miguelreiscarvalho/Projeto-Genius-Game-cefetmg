@@ -2,7 +2,7 @@
 
 <item itemtype="Rail" CircId="Rail-1" mainComp="false" ShowProp="Voltage" Show_id="false" Show_Val="true" Pos="-316,-216" rotation="90" hflip="1" vflip="1" label="Rail-1" idLabPos="-5,-10" labelrot="-90" valLabPos="-12,6" valLabRot="-90" Voltage="5 V" />
 
-<item itemtype="MCU" CircId="p16F628-4" mainComp="false" Show_id="true" Show_Val="false" Pos="-224,-148" rotation="0" hflip="1" vflip="1" label="p16F628-4" idLabPos="0,-20" labelrot="0" valLabPos="-16,20" valLabRot="0" Frequency="20 MHz" Program="D:/CEFET/2025/Programação Aplicada A Microcontroladores/Projeto-Genius-Game-cefetmg/Projeto META 2025/ProjectMemoryGame.hex" Auto_Load="false" saveEepr="true" Rst_enabled="true" Ext_Osc="true" Wdt_enabled="false" Clk_Out="false" MainMcu="true" SerialMon="-1" />
+<item itemtype="MCU" CircId="p16F628-4" mainComp="false" Show_id="true" Show_Val="false" Pos="-224,-148" rotation="0" hflip="1" vflip="1" label="p16F628-4" idLabPos="0,-20" labelrot="0" valLabPos="-16,20" valLabRot="0" Frequency="20 MHz" Program="../ProjectMemoryGame.hex" Auto_Load="true" saveEepr="false" Rst_enabled="true" Ext_Osc="true" Wdt_enabled="false" Clk_Out="false" MainMcu="true" SerialMon="-1" />
 
 <item itemtype="AudioOut" CircId="AudioOut-5" mainComp="false" ShowProp="Impedance" Show_id="false" Show_Val="true" Pos="88,-128" rotation="0" hflip="1" vflip="1" label="AudioOut-5" idLabPos="-20,-36" labelrot="0" valLabPos="-16,20" valLabRot="0" Buzzer="false" Impedance="8 Ω" Frequency="80000 kHz" />
 

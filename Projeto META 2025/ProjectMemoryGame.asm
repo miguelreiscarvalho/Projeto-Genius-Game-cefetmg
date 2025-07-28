@@ -335,7 +335,7 @@ L_end_apresentacao:
 _partida:
 
 ;ProjectMemoryGame.c,65 :: 		void partida() {
-;ProjectMemoryGame.c,66 :: 		while(step < partidas && situacao) {
+;ProjectMemoryGame.c,66 :: 		while(step < partidas && situacao) {   // Termina quando as rodadas terminam ou quando o jogador perder
 L_partida17:
 	MOVF       _partidas+0, 0
 	SUBWF      _step+0, 0
@@ -345,8 +345,12 @@ L_partida17:
 	BTFSC      STATUS+0, 2
 	GOTO       L_partida18
 L__partida78:
-;ProjectMemoryGame.c,67 :: 		sequencia[step] = rand() % 4;
+;ProjectMemoryGame.c,67 :: 		sequencia[step] = rand() % 4; // Gera??o de n?mero aleat?rio do ultimo passo da rodada atual, limitada em 4: 0 - 3;
 	MOVF       _step+0, 0
+	MOVWF      R0+0
+	RLF        R0+0, 1
+	BCF        R0+0, 0
+	MOVF       R0+0, 0
 	ADDLW      _sequencia+0
 	MOVWF      FLOC__partida+0
 	CALL       _rand+0
@@ -363,19 +367,26 @@ L__partida78:
 	MOVWF      FSR
 	MOVF       R0+0, 0
 	MOVWF      INDF+0
-;ProjectMemoryGame.c,69 :: 		for(j = 0; j <= step; j++) {
+	MOVF       R0+1, 0
+	INCF       FSR, 1
+	MOVWF      INDF+0
+;ProjectMemoryGame.c,71 :: 		for(j = 0; j <= step; j++) { // Loop que exibe todos os leds sorteados em cada passo da rodada
 	CLRF       _j+0
 L_partida21:
 	MOVF       _j+0, 0
 	SUBWF      _step+0, 0
 	BTFSS      STATUS+0, 0
 	GOTO       L_partida22
-;ProjectMemoryGame.c,70 :: 		switch(sequencia[j]) {
+;ProjectMemoryGame.c,72 :: 		switch(sequencia[j]) { // Recebe o valor correspondente ao led sorteado no passo atual
 	MOVF       _j+0, 0
+	MOVWF      R0+0
+	RLF        R0+0, 1
+	BCF        R0+0, 0
+	MOVF       R0+0, 0
 	ADDLW      _sequencia+0
 	MOVWF      FLOC__partida+0
 	GOTO       L_partida24
-;ProjectMemoryGame.c,71 :: 		case 0: led_red = 1; Sound_Play(182, 300); break;
+;ProjectMemoryGame.c,73 :: 		case 0: led_red = 1; Sound_Play(182, 300); break; // Liga o led vermelho se ele for o sorteado no passo atual
 L_partida26:
 	BSF        PORTB+0, 0
 	MOVLW      182
@@ -387,7 +398,7 @@ L_partida26:
 	MOVWF      FARG_Sound_Play_duration_ms+1
 	CALL       _Sound_Play+0
 	GOTO       L_partida25
-;ProjectMemoryGame.c,72 :: 		case 1: led_yellow = 1; Sound_Play(150, 300); break;
+;ProjectMemoryGame.c,74 :: 		case 1: led_yellow = 1; Sound_Play(150, 300); break; // Liga o led yellow se ele for o sorteado no passo atual
 L_partida27:
 	BSF        PORTB+0, 1
 	MOVLW      150
@@ -399,7 +410,7 @@ L_partida27:
 	MOVWF      FARG_Sound_Play_duration_ms+1
 	CALL       _Sound_Play+0
 	GOTO       L_partida25
-;ProjectMemoryGame.c,73 :: 		case 2: led_blue = 1; Sound_Play(120, 300); break;
+;ProjectMemoryGame.c,75 :: 		case 2: led_blue = 1; Sound_Play(120, 300); break; // Liga o led blue se ele for o sorteado no passo atual
 L_partida28:
 	BSF        PORTB+0, 3
 	MOVLW      120
@@ -412,7 +423,7 @@ L_partida28:
 	MOVWF      FARG_Sound_Play_duration_ms+1
 	CALL       _Sound_Play+0
 	GOTO       L_partida25
-;ProjectMemoryGame.c,74 :: 		case 3: led_green = 1; Sound_Play(90, 300); break;
+;ProjectMemoryGame.c,76 :: 		case 3: led_green = 1; Sound_Play(90, 300); break; // Liga o led green se ele for o sorteado no passo atual
 L_partida29:
 	BSF        PORTB+0, 2
 	MOVLW      90
@@ -425,34 +436,74 @@ L_partida29:
 	MOVWF      FARG_Sound_Play_duration_ms+1
 	CALL       _Sound_Play+0
 	GOTO       L_partida25
-;ProjectMemoryGame.c,75 :: 		}
+;ProjectMemoryGame.c,77 :: 		}
 L_partida24:
 	MOVF       FLOC__partida+0, 0
 	MOVWF      FSR
 	MOVF       INDF+0, 0
-	XORLW      0
+	MOVWF      R1+0
+	INCF       FSR, 1
+	MOVF       INDF+0, 0
+	MOVWF      R1+1
+	MOVLW      0
+	XORWF      R1+1, 0
+	BTFSS      STATUS+0, 2
+	GOTO       L__partida94
+	MOVLW      0
+	XORWF      R1+0, 0
+L__partida94:
 	BTFSC      STATUS+0, 2
 	GOTO       L_partida26
 	MOVF       FLOC__partida+0, 0
 	MOVWF      FSR
 	MOVF       INDF+0, 0
-	XORLW      1
+	MOVWF      R1+0
+	INCF       FSR, 1
+	MOVF       INDF+0, 0
+	MOVWF      R1+1
+	MOVLW      0
+	XORWF      R1+1, 0
+	BTFSS      STATUS+0, 2
+	GOTO       L__partida95
+	MOVLW      1
+	XORWF      R1+0, 0
+L__partida95:
 	BTFSC      STATUS+0, 2
 	GOTO       L_partida27
 	MOVF       FLOC__partida+0, 0
 	MOVWF      FSR
 	MOVF       INDF+0, 0
-	XORLW      2
+	MOVWF      R1+0
+	INCF       FSR, 1
+	MOVF       INDF+0, 0
+	MOVWF      R1+1
+	MOVLW      0
+	XORWF      R1+1, 0
+	BTFSS      STATUS+0, 2
+	GOTO       L__partida96
+	MOVLW      2
+	XORWF      R1+0, 0
+L__partida96:
 	BTFSC      STATUS+0, 2
 	GOTO       L_partida28
 	MOVF       FLOC__partida+0, 0
 	MOVWF      FSR
 	MOVF       INDF+0, 0
-	XORLW      3
+	MOVWF      R1+0
+	INCF       FSR, 1
+	MOVF       INDF+0, 0
+	MOVWF      R1+1
+	MOVLW      0
+	XORWF      R1+1, 0
+	BTFSS      STATUS+0, 2
+	GOTO       L__partida97
+	MOVLW      3
+	XORWF      R1+0, 0
+L__partida97:
 	BTFSC      STATUS+0, 2
 	GOTO       L_partida29
 L_partida25:
-;ProjectMemoryGame.c,76 :: 		delay_ms(1000);
+;ProjectMemoryGame.c,78 :: 		delay_ms(1000); //  Mant?m os leds ligados por 1 segundo, OBS: Alterar isso poder influenciar no par?metro de dificuldade
 	MOVLW      6
 	MOVWF      R11+0
 	MOVLW      19
@@ -468,30 +519,30 @@ L_partida30:
 	GOTO       L_partida30
 	NOP
 	NOP
-;ProjectMemoryGame.c,77 :: 		led_red = led_yellow = led_green = led_blue = 0;
+;ProjectMemoryGame.c,79 :: 		led_red = led_yellow = led_green = led_blue = 0; // Desliga todos os leds.
 	BCF        PORTB+0, 3
 	BTFSC      PORTB+0, 3
-	GOTO       L__partida94
-	BCF        PORTB+0, 2
-	GOTO       L__partida95
-L__partida94:
-	BSF        PORTB+0, 2
-L__partida95:
-	BTFSC      PORTB+0, 2
-	GOTO       L__partida96
-	BCF        PORTB+0, 1
-	GOTO       L__partida97
-L__partida96:
-	BSF        PORTB+0, 1
-L__partida97:
-	BTFSC      PORTB+0, 1
 	GOTO       L__partida98
-	BCF        PORTB+0, 0
+	BCF        PORTB+0, 2
 	GOTO       L__partida99
 L__partida98:
-	BSF        PORTB+0, 0
+	BSF        PORTB+0, 2
 L__partida99:
-;ProjectMemoryGame.c,78 :: 		delay_ms(500);
+	BTFSC      PORTB+0, 2
+	GOTO       L__partida100
+	BCF        PORTB+0, 1
+	GOTO       L__partida101
+L__partida100:
+	BSF        PORTB+0, 1
+L__partida101:
+	BTFSC      PORTB+0, 1
+	GOTO       L__partida102
+	BCF        PORTB+0, 0
+	GOTO       L__partida103
+L__partida102:
+	BSF        PORTB+0, 0
+L__partida103:
+;ProjectMemoryGame.c,80 :: 		delay_ms(500); // Desliga os leds e mant?m os mesmos desligados por 0.5s.
 	MOVLW      3
 	MOVWF      R11+0
 	MOVLW      138
@@ -507,12 +558,12 @@ L_partida31:
 	GOTO       L_partida31
 	NOP
 	NOP
-;ProjectMemoryGame.c,69 :: 		for(j = 0; j <= step; j++) {
+;ProjectMemoryGame.c,71 :: 		for(j = 0; j <= step; j++) { // Loop que exibe todos os leds sorteados em cada passo da rodada
 	INCF       _j+0, 1
-;ProjectMemoryGame.c,79 :: 		}
+;ProjectMemoryGame.c,81 :: 		} // Fim da exibi??o da rodada atual
 	GOTO       L_partida21
 L_partida22:
-;ProjectMemoryGame.c,81 :: 		delay_ms(3000);
+;ProjectMemoryGame.c,86 :: 		delay_ms(3000); // Aguarda um periodo de 3s ap?s a exibi??o da sequ?ncia da rodada atual
 	MOVLW      16
 	MOVWF      R11+0
 	MOVLW      57
@@ -528,11 +579,11 @@ L_partida32:
 	GOTO       L_partida32
 	NOP
 	NOP
-;ProjectMemoryGame.c,82 :: 		jogada = 0;
+;ProjectMemoryGame.c,87 :: 		jogada = 0; // Demarca qual passo da rodada estamos verificando se o jogador acertou
 	CLRF       _jogada+0
-;ProjectMemoryGame.c,83 :: 		espera = 0;
+;ProjectMemoryGame.c,88 :: 		espera = 0; // VARI?VEL DE SEGURAN?A: Garante que s? iremos passar para o pr?ximo passo se o usu?rio soltar o bot?o
 	CLRF       _espera+0
-;ProjectMemoryGame.c,85 :: 		while(jogada <= step && situacao) {
+;ProjectMemoryGame.c,90 :: 		while(jogada <= step && situacao) { // Termina quando todos os passos da rodada s?o executados ou quando o jogador erra a sequ?ncia
 L_partida33:
 	MOVF       _jogada+0, 0
 	SUBWF      _step+0, 0
@@ -542,7 +593,7 @@ L_partida33:
 	BTFSC      STATUS+0, 2
 	GOTO       L_partida34
 L__partida77:
-;ProjectMemoryGame.c,86 :: 		if(!press_button && !espera) {
+;ProjectMemoryGame.c,92 :: 		if(!press_button && !espera) { // Entra quando o jogador aperta o bot?o e s? entra aqui de novo, quando o us?ario soltar o bot?o
 	MOVF       _press_button+0, 0
 	BTFSS      STATUS+0, 2
 	GOTO       L_partida39
@@ -550,12 +601,15 @@ L__partida77:
 	BTFSS      STATUS+0, 2
 	GOTO       L_partida39
 L__partida76:
-;ProjectMemoryGame.c,87 :: 		if(botao_red)    { press_button = 1; led_red = 1; Sound_Play(182, 300); if(sequencia[jogada] != 0) situacao = 0; }
+;ProjectMemoryGame.c,95 :: 		if(botao_red)    { // Verifica se o bot?o pressionado foi o vermelho
 	BTFSS      PORTB+0, 4
 	GOTO       L_partida40
+;ProjectMemoryGame.c,96 :: 		press_button = 1; // Marca o bot?o como pressionado
 	MOVLW      1
 	MOVWF      _press_button+0
+;ProjectMemoryGame.c,97 :: 		led_red = 1; // Liga o led vermelho
 	BSF        PORTB+0, 0
+;ProjectMemoryGame.c,98 :: 		Sound_Play(182, 300); // Executa o som correspondente ao led vermelho
 	MOVLW      182
 	MOVWF      FARG_Sound_Play_freq_in_hz+0
 	CLRF       FARG_Sound_Play_freq_in_hz+1
@@ -564,23 +618,42 @@ L__partida76:
 	MOVLW      1
 	MOVWF      FARG_Sound_Play_duration_ms+1
 	CALL       _Sound_Play+0
+;ProjectMemoryGame.c,99 :: 		if(sequencia[jogada] != 0) situacao = 0; // Verifica se o jogador errou o bot?o do passo atual, se sim a rodada termina - GAME OVER
 	MOVF       _jogada+0, 0
+	MOVWF      R0+0
+	RLF        R0+0, 1
+	BCF        R0+0, 0
+	MOVF       R0+0, 0
 	ADDLW      _sequencia+0
 	MOVWF      FSR
 	MOVF       INDF+0, 0
-	XORLW      0
+	MOVWF      R1+0
+	INCF       FSR, 1
+	MOVF       INDF+0, 0
+	MOVWF      R1+1
+	MOVLW      0
+	XORWF      R1+1, 0
+	BTFSS      STATUS+0, 2
+	GOTO       L__partida104
+	MOVLW      0
+	XORWF      R1+0, 0
+L__partida104:
 	BTFSC      STATUS+0, 2
 	GOTO       L_partida41
 	CLRF       _situacao+0
 L_partida41:
+;ProjectMemoryGame.c,100 :: 		}
 	GOTO       L_partida42
 L_partida40:
-;ProjectMemoryGame.c,88 :: 		else if(botao_yellow) { press_button = 1; led_yellow = 1; Sound_Play(150, 300); if(sequencia[jogada] != 1) situacao = 0; }
+;ProjectMemoryGame.c,101 :: 		else if(botao_yellow) { // Verifica se o bot?o pressionado foi o amarelho
 	BTFSS      PORTB+0, 5
 	GOTO       L_partida43
+;ProjectMemoryGame.c,102 :: 		press_button = 1; // Marca o bot?o como pressionado
 	MOVLW      1
 	MOVWF      _press_button+0
+;ProjectMemoryGame.c,103 :: 		led_yellow = 1; // Liga o led amarelo
 	BSF        PORTB+0, 1
+;ProjectMemoryGame.c,104 :: 		Sound_Play(150, 300); // Executa o som correspondente ao led amarelo
 	MOVLW      150
 	MOVWF      FARG_Sound_Play_freq_in_hz+0
 	CLRF       FARG_Sound_Play_freq_in_hz+1
@@ -589,23 +662,42 @@ L_partida40:
 	MOVLW      1
 	MOVWF      FARG_Sound_Play_duration_ms+1
 	CALL       _Sound_Play+0
+;ProjectMemoryGame.c,105 :: 		if(sequencia[jogada] != 1) situacao = 0; // Verifica se o jogador errou o bot?o do passo atual, se sim a rodada termina - GAME OVER
 	MOVF       _jogada+0, 0
+	MOVWF      R0+0
+	RLF        R0+0, 1
+	BCF        R0+0, 0
+	MOVF       R0+0, 0
 	ADDLW      _sequencia+0
 	MOVWF      FSR
 	MOVF       INDF+0, 0
-	XORLW      1
+	MOVWF      R1+0
+	INCF       FSR, 1
+	MOVF       INDF+0, 0
+	MOVWF      R1+1
+	MOVLW      0
+	XORWF      R1+1, 0
+	BTFSS      STATUS+0, 2
+	GOTO       L__partida105
+	MOVLW      1
+	XORWF      R1+0, 0
+L__partida105:
 	BTFSC      STATUS+0, 2
 	GOTO       L_partida44
 	CLRF       _situacao+0
 L_partida44:
+;ProjectMemoryGame.c,106 :: 		}
 	GOTO       L_partida45
 L_partida43:
-;ProjectMemoryGame.c,89 :: 		else if(botao_blue)   { press_button = 1; led_blue = 1; Sound_Play(120, 300); if(sequencia[jogada] != 2) situacao = 0; }
+;ProjectMemoryGame.c,107 :: 		else if(botao_blue)   { // Verifica se o bot?o pressionado foi o azul
 	BTFSS      PORTB+0, 7
 	GOTO       L_partida46
+;ProjectMemoryGame.c,108 :: 		press_button = 1; // Marca o bot?o como pressionado
 	MOVLW      1
 	MOVWF      _press_button+0
+;ProjectMemoryGame.c,109 :: 		led_blue = 1; // Liga o led azul
 	BSF        PORTB+0, 3
+;ProjectMemoryGame.c,110 :: 		Sound_Play(120, 300); // Executa o som correspondente ao led azul
 	MOVLW      120
 	MOVWF      FARG_Sound_Play_freq_in_hz+0
 	MOVLW      0
@@ -615,23 +707,42 @@ L_partida43:
 	MOVLW      1
 	MOVWF      FARG_Sound_Play_duration_ms+1
 	CALL       _Sound_Play+0
+;ProjectMemoryGame.c,111 :: 		if(sequencia[jogada] != 2) situacao = 0; // Verifica se o jogador errou o bot?o do passo atual, se sim a rodada termina - GAME OVER
 	MOVF       _jogada+0, 0
+	MOVWF      R0+0
+	RLF        R0+0, 1
+	BCF        R0+0, 0
+	MOVF       R0+0, 0
 	ADDLW      _sequencia+0
 	MOVWF      FSR
 	MOVF       INDF+0, 0
-	XORLW      2
+	MOVWF      R1+0
+	INCF       FSR, 1
+	MOVF       INDF+0, 0
+	MOVWF      R1+1
+	MOVLW      0
+	XORWF      R1+1, 0
+	BTFSS      STATUS+0, 2
+	GOTO       L__partida106
+	MOVLW      2
+	XORWF      R1+0, 0
+L__partida106:
 	BTFSC      STATUS+0, 2
 	GOTO       L_partida47
 	CLRF       _situacao+0
 L_partida47:
+;ProjectMemoryGame.c,112 :: 		}
 	GOTO       L_partida48
 L_partida46:
-;ProjectMemoryGame.c,90 :: 		else if(botao_green)  { press_button = 1; led_green = 1; Sound_Play(90, 300); if(sequencia[jogada] != 3) situacao = 0; }
+;ProjectMemoryGame.c,113 :: 		else if(botao_green)  { // Verifica se o bot?o pressionado foi o verde
 	BTFSS      PORTB+0, 6
 	GOTO       L_partida49
+;ProjectMemoryGame.c,114 :: 		press_button = 1; // Marca o bot?o como pressionado
 	MOVLW      1
 	MOVWF      _press_button+0
+;ProjectMemoryGame.c,115 :: 		led_green = 1; // Liga o led verde
 	BSF        PORTB+0, 2
+;ProjectMemoryGame.c,116 :: 		Sound_Play(90, 300); // Executa o som correspondente ao led verde
 	MOVLW      90
 	MOVWF      FARG_Sound_Play_freq_in_hz+0
 	MOVLW      0
@@ -641,23 +752,40 @@ L_partida46:
 	MOVLW      1
 	MOVWF      FARG_Sound_Play_duration_ms+1
 	CALL       _Sound_Play+0
+;ProjectMemoryGame.c,117 :: 		if(sequencia[jogada] != 3) situacao = 0; // Verifica se o jogador errou o bot?o do passo atual, se sim a rodada termina - GAME OVER
 	MOVF       _jogada+0, 0
+	MOVWF      R0+0
+	RLF        R0+0, 1
+	BCF        R0+0, 0
+	MOVF       R0+0, 0
 	ADDLW      _sequencia+0
 	MOVWF      FSR
 	MOVF       INDF+0, 0
-	XORLW      3
+	MOVWF      R1+0
+	INCF       FSR, 1
+	MOVF       INDF+0, 0
+	MOVWF      R1+1
+	MOVLW      0
+	XORWF      R1+1, 0
+	BTFSS      STATUS+0, 2
+	GOTO       L__partida107
+	MOVLW      3
+	XORWF      R1+0, 0
+L__partida107:
 	BTFSC      STATUS+0, 2
 	GOTO       L_partida50
 	CLRF       _situacao+0
 L_partida50:
+;ProjectMemoryGame.c,118 :: 		}
 L_partida49:
 L_partida48:
 L_partida45:
 L_partida42:
-;ProjectMemoryGame.c,92 :: 		if(press_button) { delay_ms(500); espera = 1; }
+;ProjectMemoryGame.c,120 :: 		if(press_button) { // Verifica se o bot?o foi solto, garantindo o funcionamento ideal da logica de verifica??o sem repeti??es
 	MOVF       _press_button+0, 0
 	BTFSC      STATUS+0, 2
 	GOTO       L_partida51
+;ProjectMemoryGame.c,121 :: 		delay_ms(500); // Garante que um poss?vel mal contato no circuito n?o contabilize o bot?o como sendo pressionado novamente.
 	MOVLW      3
 	MOVWF      R11+0
 	MOVLW      138
@@ -673,13 +801,15 @@ L_partida52:
 	GOTO       L_partida52
 	NOP
 	NOP
+;ProjectMemoryGame.c,122 :: 		espera = 1; // Marca espera como 1 - true: possibilitando o retorno de verifica??o de bot?o pressionado
 	MOVLW      1
 	MOVWF      _espera+0
+;ProjectMemoryGame.c,123 :: 		}
 L_partida51:
-;ProjectMemoryGame.c,93 :: 		}
+;ProjectMemoryGame.c,124 :: 		}
 	GOTO       L_partida53
 L_partida39:
-;ProjectMemoryGame.c,94 :: 		else if(press_button && espera) {
+;ProjectMemoryGame.c,125 :: 		else if(press_button && espera) { // Verifica se o usuario pressionou o bot?o e se ele ainda esta pressionado
 	MOVF       _press_button+0, 0
 	BTFSC      STATUS+0, 2
 	GOTO       L_partida56
@@ -687,7 +817,7 @@ L_partida39:
 	BTFSC      STATUS+0, 2
 	GOTO       L_partida56
 L__partida75:
-;ProjectMemoryGame.c,95 :: 		if(!botao_red && !botao_yellow && !botao_blue && !botao_green) {
+;ProjectMemoryGame.c,126 :: 		if(!botao_red && !botao_yellow && !botao_blue && !botao_green) { // Verifica se todos so bot?es esta desligados
 	BTFSC      PORTB+0, 4
 	GOTO       L_partida59
 	BTFSC      PORTB+0, 5
@@ -697,44 +827,44 @@ L__partida75:
 	BTFSC      PORTB+0, 6
 	GOTO       L_partida59
 L__partida74:
-;ProjectMemoryGame.c,96 :: 		press_button = 0;
+;ProjectMemoryGame.c,127 :: 		press_button = 0; // Marca o estado como bot?o nao pressionado
 	CLRF       _press_button+0
-;ProjectMemoryGame.c,97 :: 		espera = 0;
+;ProjectMemoryGame.c,128 :: 		espera = 0; // Desativa a espera pela resposta do bot?o
 	CLRF       _espera+0
-;ProjectMemoryGame.c,98 :: 		jogada++;
+;ProjectMemoryGame.c,129 :: 		jogada++; // Incrementa +1, se o passo da rodada foi terminado
 	INCF       _jogada+0, 1
-;ProjectMemoryGame.c,99 :: 		led_red = led_yellow = led_blue = led_green = 0;
+;ProjectMemoryGame.c,130 :: 		led_red = led_yellow = led_blue = led_green = 0; // Desliga todos os leds
 	BCF        PORTB+0, 2
 	BTFSC      PORTB+0, 2
-	GOTO       L__partida100
+	GOTO       L__partida108
 	BCF        PORTB+0, 3
-	GOTO       L__partida101
-L__partida100:
+	GOTO       L__partida109
+L__partida108:
 	BSF        PORTB+0, 3
-L__partida101:
+L__partida109:
 	BTFSC      PORTB+0, 3
-	GOTO       L__partida102
+	GOTO       L__partida110
 	BCF        PORTB+0, 1
-	GOTO       L__partida103
-L__partida102:
+	GOTO       L__partida111
+L__partida110:
 	BSF        PORTB+0, 1
-L__partida103:
+L__partida111:
 	BTFSC      PORTB+0, 1
-	GOTO       L__partida104
+	GOTO       L__partida112
 	BCF        PORTB+0, 0
-	GOTO       L__partida105
-L__partida104:
+	GOTO       L__partida113
+L__partida112:
 	BSF        PORTB+0, 0
-L__partida105:
-;ProjectMemoryGame.c,100 :: 		}
+L__partida113:
+;ProjectMemoryGame.c,131 :: 		}
 L_partida59:
-;ProjectMemoryGame.c,101 :: 		}
+;ProjectMemoryGame.c,132 :: 		}
 L_partida56:
 L_partida53:
-;ProjectMemoryGame.c,102 :: 		}
+;ProjectMemoryGame.c,133 :: 		} // Fim da rodada do jogador
 	GOTO       L_partida33
 L_partida34:
-;ProjectMemoryGame.c,104 :: 		delay_ms(3000);
+;ProjectMemoryGame.c,135 :: 		delay_ms(3000);
 	MOVLW      16
 	MOVWF      R11+0
 	MOVLW      57
@@ -750,9 +880,9 @@ L_partida60:
 	GOTO       L_partida60
 	NOP
 	NOP
-;ProjectMemoryGame.c,105 :: 		step++;
+;ProjectMemoryGame.c,136 :: 		step++; // Incrementa mais uma rodada
 	INCF       _step+0, 1
-;ProjectMemoryGame.c,106 :: 		delay_ms(2000);
+;ProjectMemoryGame.c,137 :: 		delay_ms(2000);
 	MOVLW      11
 	MOVWF      R11+0
 	MOVLW      38
@@ -768,43 +898,43 @@ L_partida61:
 	GOTO       L_partida61
 	NOP
 	NOP
-;ProjectMemoryGame.c,107 :: 		}
+;ProjectMemoryGame.c,138 :: 		} // Fim da rodada
 	GOTO       L_partida17
 L_partida18:
-;ProjectMemoryGame.c,108 :: 		}
+;ProjectMemoryGame.c,139 :: 		}
 L_end_partida:
 	RETURN
 ; end of _partida
 
 _reseta_led:
 
-;ProjectMemoryGame.c,110 :: 		void reseta_led(){
-;ProjectMemoryGame.c,112 :: 		led_red = 0;
+;ProjectMemoryGame.c,141 :: 		void reseta_led(){
+;ProjectMemoryGame.c,143 :: 		led_red = 0;
 	BCF        PORTB+0, 0
-;ProjectMemoryGame.c,113 :: 		led_blue = 0;
+;ProjectMemoryGame.c,144 :: 		led_blue = 0;
 	BCF        PORTB+0, 3
-;ProjectMemoryGame.c,114 :: 		led_green = 0;
+;ProjectMemoryGame.c,145 :: 		led_green = 0;
 	BCF        PORTB+0, 2
-;ProjectMemoryGame.c,115 :: 		led_yellow = 0;
+;ProjectMemoryGame.c,146 :: 		led_yellow = 0;
 	BCF        PORTB+0, 1
-;ProjectMemoryGame.c,117 :: 		}
+;ProjectMemoryGame.c,148 :: 		}
 L_end_reseta_led:
 	RETURN
 ; end of _reseta_led
 
 _aguarda_e_gera_semente:
 
-;ProjectMemoryGame.c,120 :: 		void aguarda_e_gera_semente() {
-;ProjectMemoryGame.c,121 :: 		unsigned int tempo = 0;
+;ProjectMemoryGame.c,151 :: 		void aguarda_e_gera_semente() {
+;ProjectMemoryGame.c,152 :: 		unsigned int tempo = 0;
 	CLRF       aguarda_e_gera_semente_tempo_L0+0
 	CLRF       aguarda_e_gera_semente_tempo_L0+1
-;ProjectMemoryGame.c,122 :: 		led_red = 1;
+;ProjectMemoryGame.c,153 :: 		led_red = 1;
 	BSF        PORTB+0, 0
-;ProjectMemoryGame.c,123 :: 		while(botao_red == 0) {
+;ProjectMemoryGame.c,154 :: 		while(botao_red == 0) {
 L_aguarda_e_gera_semente62:
 	BTFSC      PORTB+0, 4
 	GOTO       L_aguarda_e_gera_semente63
-;ProjectMemoryGame.c,124 :: 		delay_ms(1);
+;ProjectMemoryGame.c,155 :: 		delay_ms(1);
 	MOVLW      2
 	MOVWF      R12+0
 	MOVLW      75
@@ -814,52 +944,52 @@ L_aguarda_e_gera_semente64:
 	GOTO       L_aguarda_e_gera_semente64
 	DECFSZ     R12+0, 1
 	GOTO       L_aguarda_e_gera_semente64
-;ProjectMemoryGame.c,125 :: 		tempo++;
+;ProjectMemoryGame.c,156 :: 		tempo++;
 	INCF       aguarda_e_gera_semente_tempo_L0+0, 1
 	BTFSC      STATUS+0, 2
 	INCF       aguarda_e_gera_semente_tempo_L0+1, 1
-;ProjectMemoryGame.c,126 :: 		}
+;ProjectMemoryGame.c,157 :: 		}
 	GOTO       L_aguarda_e_gera_semente62
 L_aguarda_e_gera_semente63:
-;ProjectMemoryGame.c,128 :: 		led_red = 0;
+;ProjectMemoryGame.c,159 :: 		led_red = 0;
 	BCF        PORTB+0, 0
-;ProjectMemoryGame.c,129 :: 		srand(tempo);  // Usa o tempo como semente
+;ProjectMemoryGame.c,160 :: 		srand(tempo);  // Usa o tempo como semente
 	MOVF       aguarda_e_gera_semente_tempo_L0+0, 0
 	MOVWF      FARG_srand_x+0
 	MOVF       aguarda_e_gera_semente_tempo_L0+1, 0
 	MOVWF      FARG_srand_x+1
 	CALL       _srand+0
-;ProjectMemoryGame.c,130 :: 		}
+;ProjectMemoryGame.c,161 :: 		}
 L_end_aguarda_e_gera_semente:
 	RETURN
 ; end of _aguarda_e_gera_semente
 
 _main:
 
-;ProjectMemoryGame.c,132 :: 		void main() {
-;ProjectMemoryGame.c,133 :: 		TRISB = 0b11110000; // RB4 a RB7 como entrada (botões) // RB0 a RB3 LEDs
+;ProjectMemoryGame.c,163 :: 		void main() {
+;ProjectMemoryGame.c,164 :: 		TRISB = 0b11110000; // RB4 a RB7 como entrada (bot?es) // RB0 a RB3 LEDs
 	MOVLW      240
 	MOVWF      TRISB+0
-;ProjectMemoryGame.c,134 :: 		TRISA = 0b00000010;
+;ProjectMemoryGame.c,165 :: 		TRISA = 0b00000010;
 	MOVLW      2
 	MOVWF      TRISA+0
-;ProjectMemoryGame.c,135 :: 		PORTB = 0;
+;ProjectMemoryGame.c,166 :: 		PORTB = 0;
 	CLRF       PORTB+0
-;ProjectMemoryGame.c,136 :: 		PORTA = 1;
+;ProjectMemoryGame.c,167 :: 		PORTA = 1;
 	MOVLW      1
 	MOVWF      PORTA+0
-;ProjectMemoryGame.c,138 :: 		Sound_Init(&PORTA, 0);
+;ProjectMemoryGame.c,169 :: 		Sound_Init(&PORTA, 0);
 	MOVLW      PORTA+0
 	MOVWF      FARG_Sound_Init_snd_port+0
 	CLRF       FARG_Sound_Init_snd_pin+0
 	CALL       _Sound_Init+0
-;ProjectMemoryGame.c,140 :: 		while(1){
+;ProjectMemoryGame.c,171 :: 		while(1){
 L_main65:
-;ProjectMemoryGame.c,141 :: 		aguarda_e_gera_semente();  // espera o primeiro clique
+;ProjectMemoryGame.c,172 :: 		aguarda_e_gera_semente();  // espera o primeiro clique
 	CALL       _aguarda_e_gera_semente+0
-;ProjectMemoryGame.c,142 :: 		apresentacao();            // inicia apresentação
+;ProjectMemoryGame.c,173 :: 		apresentacao();            // inicia apresenta??o
 	CALL       _apresentacao+0
-;ProjectMemoryGame.c,143 :: 		delay_ms(5000);
+;ProjectMemoryGame.c,174 :: 		delay_ms(5000);
 	MOVLW      26
 	MOVWF      R11+0
 	MOVLW      94
@@ -874,13 +1004,13 @@ L_main67:
 	DECFSZ     R11+0, 1
 	GOTO       L_main67
 	NOP
-;ProjectMemoryGame.c,144 :: 		partida();                 // executa o jogo
+;ProjectMemoryGame.c,175 :: 		partida();                 // executa o jogo
 	CALL       _partida+0
-;ProjectMemoryGame.c,146 :: 		if(situacao) { // vitória
+;ProjectMemoryGame.c,177 :: 		if(situacao) { // vit?ria
 	MOVF       _situacao+0, 0
 	BTFSC      STATUS+0, 2
 	GOTO       L_main68
-;ProjectMemoryGame.c,147 :: 		Sound_Play(70, 300);
+;ProjectMemoryGame.c,178 :: 		Sound_Play(70, 300);
 	MOVLW      70
 	MOVWF      FARG_Sound_Play_freq_in_hz+0
 	MOVLW      0
@@ -890,7 +1020,7 @@ L_main67:
 	MOVLW      1
 	MOVWF      FARG_Sound_Play_duration_ms+1
 	CALL       _Sound_Play+0
-;ProjectMemoryGame.c,148 :: 		delay_ms(300);
+;ProjectMemoryGame.c,179 :: 		delay_ms(300);
 	MOVLW      2
 	MOVWF      R11+0
 	MOVLW      134
@@ -904,7 +1034,7 @@ L_main69:
 	GOTO       L_main69
 	DECFSZ     R11+0, 1
 	GOTO       L_main69
-;ProjectMemoryGame.c,149 :: 		Sound_Play(100, 300);
+;ProjectMemoryGame.c,180 :: 		Sound_Play(100, 300);
 	MOVLW      100
 	MOVWF      FARG_Sound_Play_freq_in_hz+0
 	MOVLW      0
@@ -914,7 +1044,7 @@ L_main69:
 	MOVLW      1
 	MOVWF      FARG_Sound_Play_duration_ms+1
 	CALL       _Sound_Play+0
-;ProjectMemoryGame.c,150 :: 		delay_ms(300);
+;ProjectMemoryGame.c,181 :: 		delay_ms(300);
 	MOVLW      2
 	MOVWF      R11+0
 	MOVLW      134
@@ -928,7 +1058,7 @@ L_main70:
 	GOTO       L_main70
 	DECFSZ     R11+0, 1
 	GOTO       L_main70
-;ProjectMemoryGame.c,151 :: 		Sound_Play(130, 300);
+;ProjectMemoryGame.c,182 :: 		Sound_Play(130, 300);
 	MOVLW      130
 	MOVWF      FARG_Sound_Play_freq_in_hz+0
 	CLRF       FARG_Sound_Play_freq_in_hz+1
@@ -937,7 +1067,7 @@ L_main70:
 	MOVLW      1
 	MOVWF      FARG_Sound_Play_duration_ms+1
 	CALL       _Sound_Play+0
-;ProjectMemoryGame.c,152 :: 		delay_ms(300);
+;ProjectMemoryGame.c,183 :: 		delay_ms(300);
 	MOVLW      2
 	MOVWF      R11+0
 	MOVLW      134
@@ -951,19 +1081,19 @@ L_main71:
 	GOTO       L_main71
 	DECFSZ     R11+0, 1
 	GOTO       L_main71
-;ProjectMemoryGame.c,153 :: 		step = 0, jogada = 0, situacao = 1;
+;ProjectMemoryGame.c,184 :: 		step = 0, jogada = 0, situacao = 1;
 	CLRF       _step+0
 	CLRF       _jogada+0
 	MOVLW      1
 	MOVWF      _situacao+0
-;ProjectMemoryGame.c,154 :: 		press_button = 0, espera = 0;
+;ProjectMemoryGame.c,185 :: 		press_button = 0, espera = 0;
 	CLRF       _press_button+0
 	CLRF       _espera+0
-;ProjectMemoryGame.c,155 :: 		partidas++;
+;ProjectMemoryGame.c,186 :: 		partidas++;
 	INCF       _partidas+0, 1
-;ProjectMemoryGame.c,156 :: 		reseta_led();
+;ProjectMemoryGame.c,187 :: 		reseta_led();
 	CALL       _reseta_led+0
-;ProjectMemoryGame.c,158 :: 		if(partidas >= 30) partidas = 30; // Limita em 30 passos
+;ProjectMemoryGame.c,189 :: 		if(partidas >= 30) partidas = 30; // Limita em 30 passos
 	MOVLW      30
 	SUBWF      _partidas+0, 0
 	BTFSS      STATUS+0, 0
@@ -971,10 +1101,10 @@ L_main71:
 	MOVLW      30
 	MOVWF      _partidas+0
 L_main72:
-;ProjectMemoryGame.c,161 :: 		}
+;ProjectMemoryGame.c,192 :: 		}
 	GOTO       L_main73
 L_main68:
-;ProjectMemoryGame.c,163 :: 		Sound_Play(70, 1000);
+;ProjectMemoryGame.c,194 :: 		Sound_Play(70, 1000);
 	MOVLW      70
 	MOVWF      FARG_Sound_Play_freq_in_hz+0
 	MOVLW      0
@@ -984,15 +1114,15 @@ L_main68:
 	MOVLW      3
 	MOVWF      FARG_Sound_Play_duration_ms+1
 	CALL       _Sound_Play+0
-;ProjectMemoryGame.c,164 :: 		reseta_variavel();
+;ProjectMemoryGame.c,195 :: 		reseta_variavel();
 	CALL       _reseta_variavel+0
-;ProjectMemoryGame.c,165 :: 		reseta_led();
+;ProjectMemoryGame.c,196 :: 		reseta_led();
 	CALL       _reseta_led+0
-;ProjectMemoryGame.c,168 :: 		}
+;ProjectMemoryGame.c,199 :: 		}
 L_main73:
-;ProjectMemoryGame.c,169 :: 		}
+;ProjectMemoryGame.c,200 :: 		}
 	GOTO       L_main65
-;ProjectMemoryGame.c,170 :: 		}
+;ProjectMemoryGame.c,201 :: 		}
 L_end_main:
 	GOTO       $+0
 ; end of _main
