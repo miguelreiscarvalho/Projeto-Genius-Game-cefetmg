@@ -139,13 +139,13 @@ void reseta_led(){
 
 void aguarda_e_gera_semente() {
  unsigned int tempo = 0;
-  PORTB.RB0  = 1;
- while( PORTB.RB4  == 0) {
+  PORTB.RB2  = 1;
+ while( PORTB.RB6  == 0) {
  delay_ms(1);
  tempo++;
  }
 
-  PORTB.RB0  = 0;
+  PORTB.RB2  = 0;
  srand(tempo);
 }
 
@@ -180,7 +180,19 @@ void main() {
 
  }
  else {
+
+ reseta_led();
+
+  PORTB.RB0  = 1;
  Sound_Play(70, 1000);
+ delay_ms(1500);
+  PORTB.RB0  = 0;
+
+
+
+
+
+
  reseta_variavel();
  reseta_led();
 

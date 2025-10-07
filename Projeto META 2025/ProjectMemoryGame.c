@@ -150,13 +150,13 @@ void reseta_led(){
 // Gera??o da semente aleat?ria com base no tempo
 void aguarda_e_gera_semente() {
     unsigned int tempo = 0;
-    led_red = 1;
-    while(botao_red == 0) {
+    led_green = 1;
+    while(botao_green == 0) {
         delay_ms(1);
         tempo++;
     }
 
-    led_red = 0;
+    led_green = 0;
     srand(tempo);  // Usa o tempo como semente
 }
 
@@ -191,7 +191,19 @@ void main() {
 
       }
       else { // derrota
+          
+          reseta_led();
+
+          led_red = 1;
           Sound_Play(70, 1000);
+          delay_ms(1500);
+          led_red = 0;
+
+          
+
+
+
+          
           reseta_variavel();
           reseta_led();
 
