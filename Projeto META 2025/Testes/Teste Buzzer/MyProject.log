@@ -1,0 +1,11 @@
+0	1	mikroCPIC1618.exe -MSF -DBG -pP16F628A -DL -O11111114 -fo8 -N"D:\CEFET\2025\Programação Aplicada A Microcontroladores\Projeto-Genius-Game-cefetmg\Projeto META 2025\Testes\Teste Buzzer\MyProject.mcppi" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Defs\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Uses\P16\" -SP"D:\CEFET\2025\Programação Aplicada A Microcontroladores\Projeto-Genius-Game-cefetmg\Projeto META 2025\Testes\Teste Buzzer\" -IP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Uses\P16\" "MyProject.c" "__Lib_Math.mcl" "__Lib_MathDouble.mcl" "__Lib_System.mcl" "__Lib_Delays.mcl" "__Lib_Sound.mcl"	 
+hint: 0	1139	Available RAM: 208 [bytes], Available ROM: 2048 [bytes]	 
+diagnostics: 0	122	Compilation Started	MyProject.c
+diagnostics: 22	123	Compiled Successfully	MyProject.c
+diagnostics: 0	127	All files Compiled in 125 ms	 
+hint: 0	1144	Used RAM (bytes): 19 (9%)  Free RAM (bytes): 189 (91%)	Used RAM (bytes): 19 (9%)  Free RAM (bytes): 189 (91%)
+hint: 0	1144	Used ROM (program words): 829 (40%)  Free ROM (program words): 1219 (60%)	Used ROM (program words): 829 (40%)  Free ROM (program words): 1219 (60%)
+diagnostics: 0	125	Project Linked Successfully	MyProject.mcppi
+diagnostics: 0	128	Linked in 31 ms	 
+diagnostics: 0	129	Project 'MyProject.mcppi' completed: 328 ms	 
+diagnostics: 0	103	Finished successfully: 16 out 2025, 00:58:52	MyProject.mcppi
