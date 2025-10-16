@@ -1,153 +1,150 @@
+#define _XTAL_FREQ 8000000
+
 // LEDS
 #define led_red     PORTB.RB0
 #define led_yellow  PORTB.RB1
 #define led_green   PORTB.RB2
 #define led_blue    PORTB.RB3
 
-// Bot?es
+// Botões
 #define botao_red     PORTB.RB4
 #define botao_yellow  PORTB.RB5
 #define botao_green   PORTB.RB6
 #define botao_blue    PORTB.RB7
 
-// Vari?veis
+// Variáveis
 int sequencia[20];
 char step = 0, jogada = 0, situacao = 1;
 char press_button = 0, espera = 0;
 char i;
 char partidas = 3;
 
-void reseta_variavel(){
-    step = 0, jogada = 0, situacao = 1;
-    press_button = 0, espera = 0;
+void reseta_variavel() {
+    step = 0; jogada = 0; situacao = 1;
+    press_button = 0; espera = 0;
 }
 
-// Apresenta??o inicial
+// Apresentação inicial
 void apresentacao() {
-    delay_ms(500);
+    delay_ms(80);
 
     led_red = 1; led_yellow = 1; led_green = 0; led_blue = 0;
-    Sound_Play(132, 800); delay_ms(800);
+    Sound_Play(330, 140); delay_ms(140);
 
     led_red = 0; led_yellow = 0; led_green = 1; led_blue = 1;
-    Sound_Play(70, 1000); delay_ms(1000);
+    Sound_Play(175, 180); delay_ms(180);
 
     led_red = 1; led_yellow = 1; led_green = 1; led_blue = 1;
-    Sound_Play(180, 1200); delay_ms(1200);
+    Sound_Play(450, 200); delay_ms(200);
 
     led_red = 0; led_yellow = 0; led_green = 0; led_blue = 0;
-    delay_ms(450);
+    delay_ms(80);
 
     for (i = 0; i < 5; i++) {
         led_red = 1; led_green = 0;
-        Sound_Play(41, 180); delay_ms(180);
+        Sound_Play(103, 35); delay_ms(35);
 
         led_red = 0; led_blue = 1;
-        Sound_Play(85, 180); delay_ms(180);
+        Sound_Play(212, 35); delay_ms(35);
 
         led_blue = 0; led_yellow = 1;
-        Sound_Play(116, 180); delay_ms(180);
+        Sound_Play(290, 35); delay_ms(35);
 
         led_yellow = 0; led_green = 1;
-        Sound_Play(182, 180); delay_ms(180);
+        Sound_Play(455, 35); delay_ms(35);
     }
 
     for (i = 0; i < 6; i++) {
         led_red = led_yellow = led_green = led_blue = 1;
-        Sound_Play(70, 400); delay_ms(100);
+        Sound_Play(175, 80); delay_ms(20);
         led_red = led_yellow = led_green = led_blue = 0;
-        delay_ms(300);
+        delay_ms(60);
     }
 }
+
+
+
 char j;
 
 // Jogo
 void partida() {
-    while(step < partidas && situacao) {   // Termina quando as rodadas terminam ou quando o jogador perder
-        sequencia[step] = rand() % 4; // Gera??o de n?mero aleat?rio do ultimo passo da rodada atual, limitada em 4: 0 - 3;
+    while(step < partidas && situacao) {
+        sequencia[step] = rand() % 4;
 
-
-        // Gera??o de sequ?ncia da rodada atual.
-        for(j = 0; j <= step; j++) { // Loop que exibe todos os leds sorteados em cada passo da rodada
-            switch(sequencia[j]) { // Recebe o valor correspondente ao led sorteado no passo atual
-                case 0: led_red = 1; Sound_Play(182, 300); break; // Liga o led vermelho se ele for o sorteado no passo atual
-                case 1: led_yellow = 1; Sound_Play(150, 300); break; // Liga o led yellow se ele for o sorteado no passo atual
-                case 2: led_blue = 1; Sound_Play(120, 300); break; // Liga o led blue se ele for o sorteado no passo atual
-                case 3: led_green = 1; Sound_Play(90, 300); break; // Liga o led green se ele for o sorteado no passo atual
+        // Mostra sequência atual
+        for(j = 0; j <= step; j++) {
+            switch(sequencia[j]) {
+                case 0: led_red = 1;    Sound_Play(455, 80);  break; // 182 * 2.5
+                case 1: led_yellow = 1; Sound_Play(375, 80);  break; // 150 * 2.5
+                case 2: led_blue = 1;   Sound_Play(300, 80);  break; // 120 * 2.5
+                case 3: led_green = 1;  Sound_Play(225, 80);  break; // 90 * 2.5
             }
-            delay_ms(1000); //  Mant?m os leds ligados por 1 segundo, OBS: Alterar isso poder influenciar no par?metro de dificuldade
-            led_red = led_yellow = led_green = led_blue = 0; // Desliga todos os leds.
-            delay_ms(500); // Desliga os leds e mant?m os mesmos desligados por 0.5s.
-        } // Fim da exibi??o da rodada atual
+            delay_ms(480); // 800 ? 480
+            led_red = led_yellow = led_green = led_blue = 0;
+            delay_ms(360); // 600 ? 360
+        }
 
+        delay_ms(700); // 1200 ? 700
+        jogada = 0;
+        espera = 0;
 
-        // Jogador
-        // Recebe as entradas realizadas pelo jogador; Bot?es os quais ele apertou
-        delay_ms(3000); // Aguarda um periodo de 3s ap?s a exibi??o da sequ?ncia da rodada atual
-        jogada = 0; // Demarca qual passo da rodada estamos verificando se o jogador acertou
-        espera = 0; // VARI?VEL DE SEGURAN?A: Garante que s? iremos passar para o pr?ximo passo se o usu?rio soltar o bot?o
-
-        while(jogada <= step && situacao) { // Termina quando todos os passos da rodada s?o executados ou quando o jogador erra a sequ?ncia
-
-            if(!press_button && !espera) { // Entra quando o jogador aperta o bot?o e s? entra aqui de novo, quando o us?ario soltar o bot?o
-                                           // Garante que n?o seja contabilizado mais de um click no bot?o.
-
-                if(botao_red)    { // Verifica se o bot?o pressionado foi o vermelho
-                    press_button = 1; // Marca o bot?o como pressionado
-                    led_red = 1; // Liga o led vermelho
-                    Sound_Play(182, 300); // Executa o som correspondente ao led vermelho
-                    if(sequencia[jogada] != 0) situacao = 0; // Verifica se o jogador errou o bot?o do passo atual, se sim a rodada termina - GAME OVER
+        // Fase de leitura do jogador
+        while(jogada <= step && situacao) {
+            if(!press_button && !espera) {
+                if(botao_red) {
+                    press_button = 1;
+                    led_red = 1;
+                    Sound_Play(455, 80);
+                    if(sequencia[jogada] != 0) situacao = 0;
                 }
-                else if(botao_yellow) { // Verifica se o bot?o pressionado foi o amarelho
-                    press_button = 1; // Marca o bot?o como pressionado
-                    led_yellow = 1; // Liga o led amarelo
-                    Sound_Play(150, 300); // Executa o som correspondente ao led amarelo
-                    if(sequencia[jogada] != 1) situacao = 0; // Verifica se o jogador errou o bot?o do passo atual, se sim a rodada termina - GAME OVER
+                else if(botao_yellow) {
+                    press_button = 1;
+                    led_yellow = 1;
+                    Sound_Play(375, 80);
+                    if(sequencia[jogada] != 1) situacao = 0;
                 }
-                else if(botao_blue)   { // Verifica se o bot?o pressionado foi o azul
-                    press_button = 1; // Marca o bot?o como pressionado
-                    led_blue = 1; // Liga o led azul
-                    Sound_Play(120, 300); // Executa o som correspondente ao led azul
-                    if(sequencia[jogada] != 2) situacao = 0; // Verifica se o jogador errou o bot?o do passo atual, se sim a rodada termina - GAME OVER
+                else if(botao_blue) {
+                    press_button = 1;
+                    led_blue = 1;
+                    Sound_Play(300, 80);
+                    if(sequencia[jogada] != 2) situacao = 0;
                 }
-                else if(botao_green)  { // Verifica se o bot?o pressionado foi o verde
-                    press_button = 1; // Marca o bot?o como pressionado
-                    led_green = 1; // Liga o led verde
-                    Sound_Play(90, 300); // Executa o som correspondente ao led verde
-                    if(sequencia[jogada] != 3) situacao = 0; // Verifica se o jogador errou o bot?o do passo atual, se sim a rodada termina - GAME OVER
+                else if(botao_green) {
+                    press_button = 1;
+                    led_green = 1;
+                    Sound_Play(225, 80);
+                    if(sequencia[jogada] != 3) situacao = 0;
                 }
 
-                if(press_button) { // Verifica se o bot?o foi solto, garantindo o funcionamento ideal da logica de verifica??o sem repeti??es
-                    delay_ms(500); // Garante que um poss?vel mal contato no circuito n?o contabilize o bot?o como sendo pressionado novamente.
-                    espera = 1; // Marca espera como 1 - true: possibilitando o retorno de verifica??o de bot?o pressionado
+                if(press_button) {
+                    delay_ms(120); // 200 ? 120
+                    espera = 1;
                 }
             }
-            else if(press_button && espera) { // Verifica se o usuario pressionou o bot?o e se ele ainda esta pressionado
-                if(!botao_red && !botao_yellow && !botao_blue && !botao_green) { // Verifica se todos so bot?es esta desligados
-                    press_button = 0; // Marca o estado como bot?o nao pressionado
-                    espera = 0; // Desativa a espera pela resposta do bot?o
-                    jogada++; // Incrementa +1, se o passo da rodada foi terminado
-                    led_red = led_yellow = led_blue = led_green = 0; // Desliga todos os leds
+            else if(press_button && espera) {
+                if(!botao_red && !botao_yellow && !botao_blue && !botao_green) {
+                    press_button = 0;
+                    espera = 0;
+                    jogada++;
+                    led_red = led_yellow = led_blue = led_green = 0;
                 }
             }
-        } // Fim da rodada do jogador
+        }
 
-        delay_ms(3000);
-        step++; // Incrementa mais uma rodada
-        delay_ms(2000);
-    } // Fim da rodada
+        delay_ms(700); // 1200 ? 700
+        step++;
+        delay_ms(480); // 800 ? 480
+    }
 }
 
-void reseta_led(){
 
-     led_red = 0;
-     led_blue = 0;
-     led_green = 0;
-     led_yellow = 0;
-
+void reseta_led() {
+    led_red = 0;
+    led_blue = 0;
+    led_green = 0;
+    led_yellow = 0;
 }
 
-// Gera??o da semente aleat?ria com base no tempo
 void aguarda_e_gera_semente() {
     unsigned int tempo = 0;
     led_green = 1;
@@ -155,59 +152,47 @@ void aguarda_e_gera_semente() {
         delay_ms(1);
         tempo++;
     }
-
     led_green = 0;
-    srand(tempo);  // Usa o tempo como semente
+    srand(tempo);
 }
 
 void main() {
-    TRISB = 0b11110000; // RB4 a RB7 como entrada (bot?es) // RB0 a RB3 LEDs
-    TRISA = 0b00000010;
+    TRISB = 0b11110000;  // RB4–RB7 como entrada, RB0–RB3 como saída (LEDs)
+    TRISA = 0b00000010;  // RA1 como entrada, RA0 como saída (buzzer)
     PORTB = 0;
     PORTA = 1;
-
     Sound_Init(&PORTA, 0);
 
     while(1){
-      aguarda_e_gera_semente();  // espera o primeiro clique
-      apresentacao();            // inicia apresenta??o
-      delay_ms(5000);
-      partida();                 // executa o jogo
+        aguarda_e_gera_semente();     // Gera semente randômica
+        apresentacao();               // Animação inicial com delays ajustados
+        delay_ms(400);                // Antes: 2000 ? Ajustado para 700ms
 
-      if(situacao) { // vit?ria
-          Sound_Play(70, 300);
-          delay_ms(300);
-          Sound_Play(100, 300);
-          delay_ms(300);
-          Sound_Play(130, 300);
-          delay_ms(300);
-          step = 0, jogada = 0, situacao = 1;
-          press_button = 0, espera = 0;
-          partidas++;
-          reseta_led();
+        partida();                    // Rodada principal já ajustada
 
-          if(partidas >= 30) partidas = 30; // Limita em 30 passos
+        if(situacao) {                // Jogador venceu rodada
+            Sound_Play(300, 60);       // Antes: 120ms ? Ajustado para resposta rápida
+            delay_ms(60);
+            Sound_Play(430, 60);
+            delay_ms(60);
+            Sound_Play(620, 60);
+            delay_ms(60);
 
+            step = 0; jogada = 0; situacao = 1;
+            press_button = 0; espera = 0;
+            partidas++;
+            reseta_led();
 
-      }
-      else { // derrota
-          
-          reseta_led();
-
-          led_red = 1;
-          Sound_Play(70, 1000);
-          delay_ms(1500);
-          led_red = 0;
-
-          
-
-
-
-          
-          reseta_variavel();
-          reseta_led();
-
-
-      }
+            if(partidas >= 30) partidas = 30;
+        }
+        else {                        // Jogador errou rodada
+            reseta_led();
+            led_red = 1;
+            Sound_Play(300, 250);      // Antes: 400ms ? Ajustado para 180ms
+            delay_ms(250);            // Antes: 600ms ? Ajustado para 250ms
+            led_red = 0;
+            reseta_variavel();
+            reseta_led();
+        }
     }
 }

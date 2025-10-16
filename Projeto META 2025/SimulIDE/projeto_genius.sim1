@@ -140,8 +140,6 @@
 
 <item itemtype="Connector" uid="Connector-112" startpinid="Resistor-59-rPin" endpinid="Ground-61-Gnd" pointList="-260,-184,-260,-236,-216,-236,-216,-216" />
 
-<item itemtype="Connector" uid="Connector-20" startpinid="Push-21-switch0pinN" endpinid="Resistor-16-lPin" pointList="40,28,40,76" />
-
 <item itemtype="Connector" uid="Connector-114" startpinid="Node-62-1" endpinid="Node-63-1" pointList="-36,132,-36,160,-428,160,-428,-168,-316,-168" />
 
 <item itemtype="Connector" uid="Connector-115" startpinid="Node-25-2" endpinid="Node-62-0" pointList="-64,132,-36,132" />
@@ -151,5 +149,7 @@
 <item itemtype="Connector" uid="Connector-117" startpinid="Node-60-2" endpinid="Node-63-0" pointList="-316,-184,-316,-168" />
 
 <item itemtype="Connector" uid="Connector-118" startpinid="Node-63-2" endpinid="Switch-58-pinP0" pointList="-316,-168,-316,-156,-300,-156" />
+
+<item itemtype="Connector" uid="Connector-20" startpinid="Push-21-switch0pinN" endpinid="Resistor-16-lPin" pointList="40,28,40,76" />
 
 </circuit>

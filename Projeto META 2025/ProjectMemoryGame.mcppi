@@ -1,6 +1,6 @@
 [DEVICE]
 Name=P16F628A
-Clock=4000000
+Clock=8000000
 [MEMORY_MODEL]
 Value=0
 [BUILD_TYPE]
@@ -77,7 +77,7 @@ Count=1
 270=T6963C
 301=Trigonometry
 304=UART
-Count=29
+Count=28
 [PROGRAMMER_TYPE]
 Value=mikroE mikroProg
 [CODEGRIP_OPTIONS]
