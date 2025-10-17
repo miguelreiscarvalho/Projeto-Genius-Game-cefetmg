@@ -4,12 +4,18 @@ _reseta_variavel:
 ;ProjectMemoryGame.c,22 :: 		void reseta_variavel() {
 ;ProjectMemoryGame.c,23 :: 		step = 0; jogada = 0; situacao = 1;
 	CLRF       _step+0
+	CLRF       _step+1
 	CLRF       _jogada+0
+	CLRF       _jogada+1
 	MOVLW      1
 	MOVWF      _situacao+0
+	MOVLW      0
+	MOVWF      _situacao+1
 ;ProjectMemoryGame.c,24 :: 		press_button = 0; espera = 0;
 	CLRF       _press_button+0
+	CLRF       _press_button+1
 	CLRF       _espera+0
+	CLRF       _espera+1
 ;ProjectMemoryGame.c,25 :: 		}
 L_end_reseta_variavel:
 	RETURN
@@ -35,10 +41,10 @@ L_apresentacao0:
 	BSF        PORTB+0, 1
 	BCF        PORTB+0, 2
 	BCF        PORTB+0, 3
-;ProjectMemoryGame.c,32 :: 		Sound_Play(330, 140); delay_ms(140);
-	MOVLW      74
+;ProjectMemoryGame.c,32 :: 		Sound_Play(930, 140); delay_ms(140);
+	MOVLW      162
 	MOVWF      FARG_Sound_Play_freq_in_hz+0
-	MOVLW      1
+	MOVLW      3
 	MOVWF      FARG_Sound_Play_freq_in_hz+1
 	MOVLW      140
 	MOVWF      FARG_Sound_Play_duration_ms+0
@@ -64,10 +70,11 @@ L_apresentacao1:
 	BCF        PORTB+0, 1
 	BSF        PORTB+0, 2
 	BSF        PORTB+0, 3
-;ProjectMemoryGame.c,35 :: 		Sound_Play(175, 180); delay_ms(180);
-	MOVLW      175
+;ProjectMemoryGame.c,35 :: 		Sound_Play(775, 180); delay_ms(180);
+	MOVLW      7
 	MOVWF      FARG_Sound_Play_freq_in_hz+0
-	CLRF       FARG_Sound_Play_freq_in_hz+1
+	MOVLW      3
+	MOVWF      FARG_Sound_Play_freq_in_hz+1
 	MOVLW      180
 	MOVWF      FARG_Sound_Play_duration_ms+0
 	CLRF       FARG_Sound_Play_duration_ms+1
@@ -90,10 +97,10 @@ L_apresentacao2:
 	BSF        PORTB+0, 1
 	BSF        PORTB+0, 2
 	BSF        PORTB+0, 3
-;ProjectMemoryGame.c,38 :: 		Sound_Play(450, 200); delay_ms(200);
-	MOVLW      194
+;ProjectMemoryGame.c,38 :: 		Sound_Play(1050, 200); delay_ms(200);
+	MOVLW      26
 	MOVWF      FARG_Sound_Play_freq_in_hz+0
-	MOVLW      1
+	MOVLW      4
 	MOVWF      FARG_Sound_Play_freq_in_hz+1
 	MOVLW      200
 	MOVWF      FARG_Sound_Play_duration_ms+0
@@ -131,18 +138,27 @@ L_apresentacao4:
 	NOP
 ;ProjectMemoryGame.c,43 :: 		for (i = 0; i < 5; i++) {
 	CLRF       _i+0
+	CLRF       _i+1
 L_apresentacao5:
+	MOVLW      128
+	XORWF      _i+1, 0
+	MOVWF      R0+0
+	MOVLW      128
+	SUBWF      R0+0, 0
+	BTFSS      STATUS+0, 2
+	GOTO       L__apresentacao82
 	MOVLW      5
 	SUBWF      _i+0, 0
+L__apresentacao82:
 	BTFSC      STATUS+0, 0
 	GOTO       L_apresentacao6
 ;ProjectMemoryGame.c,44 :: 		led_red = 1; led_green = 0;
 	BSF        PORTB+0, 0
 	BCF        PORTB+0, 2
-;ProjectMemoryGame.c,45 :: 		Sound_Play(103, 35); delay_ms(35);
-	MOVLW      103
+;ProjectMemoryGame.c,45 :: 		Sound_Play(703, 35); delay_ms(35);
+	MOVLW      191
 	MOVWF      FARG_Sound_Play_freq_in_hz+0
-	MOVLW      0
+	MOVLW      2
 	MOVWF      FARG_Sound_Play_freq_in_hz+1
 	MOVLW      35
 	MOVWF      FARG_Sound_Play_duration_ms+0
@@ -163,10 +179,11 @@ L_apresentacao8:
 ;ProjectMemoryGame.c,47 :: 		led_red = 0; led_blue = 1;
 	BCF        PORTB+0, 0
 	BSF        PORTB+0, 3
-;ProjectMemoryGame.c,48 :: 		Sound_Play(212, 35); delay_ms(35);
-	MOVLW      212
+;ProjectMemoryGame.c,48 :: 		Sound_Play(812, 35); delay_ms(35);
+	MOVLW      44
 	MOVWF      FARG_Sound_Play_freq_in_hz+0
-	CLRF       FARG_Sound_Play_freq_in_hz+1
+	MOVLW      3
+	MOVWF      FARG_Sound_Play_freq_in_hz+1
 	MOVLW      35
 	MOVWF      FARG_Sound_Play_duration_ms+0
 	MOVLW      0
@@ -186,10 +203,10 @@ L_apresentacao9:
 ;ProjectMemoryGame.c,50 :: 		led_blue = 0; led_yellow = 1;
 	BCF        PORTB+0, 3
 	BSF        PORTB+0, 1
-;ProjectMemoryGame.c,51 :: 		Sound_Play(290, 35); delay_ms(35);
-	MOVLW      34
+;ProjectMemoryGame.c,51 :: 		Sound_Play(890, 35); delay_ms(35);
+	MOVLW      122
 	MOVWF      FARG_Sound_Play_freq_in_hz+0
-	MOVLW      1
+	MOVLW      3
 	MOVWF      FARG_Sound_Play_freq_in_hz+1
 	MOVLW      35
 	MOVWF      FARG_Sound_Play_duration_ms+0
@@ -210,10 +227,10 @@ L_apresentacao10:
 ;ProjectMemoryGame.c,53 :: 		led_yellow = 0; led_green = 1;
 	BCF        PORTB+0, 1
 	BSF        PORTB+0, 2
-;ProjectMemoryGame.c,54 :: 		Sound_Play(455, 35); delay_ms(35);
-	MOVLW      199
+;ProjectMemoryGame.c,54 :: 		Sound_Play(1055, 35); delay_ms(35);
+	MOVLW      31
 	MOVWF      FARG_Sound_Play_freq_in_hz+0
-	MOVLW      1
+	MOVLW      4
 	MOVWF      FARG_Sound_Play_freq_in_hz+1
 	MOVLW      35
 	MOVWF      FARG_Sound_Play_duration_ms+0
@@ -233,43 +250,55 @@ L_apresentacao11:
 	NOP
 ;ProjectMemoryGame.c,43 :: 		for (i = 0; i < 5; i++) {
 	INCF       _i+0, 1
+	BTFSC      STATUS+0, 2
+	INCF       _i+1, 1
 ;ProjectMemoryGame.c,55 :: 		}
 	GOTO       L_apresentacao5
 L_apresentacao6:
 ;ProjectMemoryGame.c,57 :: 		for (i = 0; i < 6; i++) {
 	CLRF       _i+0
+	CLRF       _i+1
 L_apresentacao12:
+	MOVLW      128
+	XORWF      _i+1, 0
+	MOVWF      R0+0
+	MOVLW      128
+	SUBWF      R0+0, 0
+	BTFSS      STATUS+0, 2
+	GOTO       L__apresentacao83
 	MOVLW      6
 	SUBWF      _i+0, 0
+L__apresentacao83:
 	BTFSC      STATUS+0, 0
 	GOTO       L_apresentacao13
 ;ProjectMemoryGame.c,58 :: 		led_red = led_yellow = led_green = led_blue = 1;
 	BSF        PORTB+0, 3
 	BTFSC      PORTB+0, 3
-	GOTO       L__apresentacao82
-	BCF        PORTB+0, 2
-	GOTO       L__apresentacao83
-L__apresentacao82:
-	BSF        PORTB+0, 2
-L__apresentacao83:
-	BTFSC      PORTB+0, 2
 	GOTO       L__apresentacao84
-	BCF        PORTB+0, 1
+	BCF        PORTB+0, 2
 	GOTO       L__apresentacao85
 L__apresentacao84:
-	BSF        PORTB+0, 1
+	BSF        PORTB+0, 2
 L__apresentacao85:
-	BTFSC      PORTB+0, 1
+	BTFSC      PORTB+0, 2
 	GOTO       L__apresentacao86
-	BCF        PORTB+0, 0
+	BCF        PORTB+0, 1
 	GOTO       L__apresentacao87
 L__apresentacao86:
-	BSF        PORTB+0, 0
+	BSF        PORTB+0, 1
 L__apresentacao87:
-;ProjectMemoryGame.c,59 :: 		Sound_Play(175, 80); delay_ms(20);
-	MOVLW      175
+	BTFSC      PORTB+0, 1
+	GOTO       L__apresentacao88
+	BCF        PORTB+0, 0
+	GOTO       L__apresentacao89
+L__apresentacao88:
+	BSF        PORTB+0, 0
+L__apresentacao89:
+;ProjectMemoryGame.c,59 :: 		Sound_Play(775, 80); delay_ms(20);
+	MOVLW      7
 	MOVWF      FARG_Sound_Play_freq_in_hz+0
-	CLRF       FARG_Sound_Play_freq_in_hz+1
+	MOVLW      3
+	MOVWF      FARG_Sound_Play_freq_in_hz+1
 	MOVLW      80
 	MOVWF      FARG_Sound_Play_duration_ms+0
 	MOVLW      0
@@ -289,26 +318,26 @@ L_apresentacao15:
 ;ProjectMemoryGame.c,60 :: 		led_red = led_yellow = led_green = led_blue = 0;
 	BCF        PORTB+0, 3
 	BTFSC      PORTB+0, 3
-	GOTO       L__apresentacao88
-	BCF        PORTB+0, 2
-	GOTO       L__apresentacao89
-L__apresentacao88:
-	BSF        PORTB+0, 2
-L__apresentacao89:
-	BTFSC      PORTB+0, 2
 	GOTO       L__apresentacao90
-	BCF        PORTB+0, 1
+	BCF        PORTB+0, 2
 	GOTO       L__apresentacao91
 L__apresentacao90:
-	BSF        PORTB+0, 1
+	BSF        PORTB+0, 2
 L__apresentacao91:
-	BTFSC      PORTB+0, 1
+	BTFSC      PORTB+0, 2
 	GOTO       L__apresentacao92
-	BCF        PORTB+0, 0
+	BCF        PORTB+0, 1
 	GOTO       L__apresentacao93
 L__apresentacao92:
-	BSF        PORTB+0, 0
+	BSF        PORTB+0, 1
 L__apresentacao93:
+	BTFSC      PORTB+0, 1
+	GOTO       L__apresentacao94
+	BCF        PORTB+0, 0
+	GOTO       L__apresentacao95
+L__apresentacao94:
+	BSF        PORTB+0, 0
+L__apresentacao95:
 ;ProjectMemoryGame.c,61 :: 		delay_ms(60);
 	MOVLW      156
 	MOVWF      R12+0
@@ -321,6 +350,8 @@ L_apresentacao16:
 	GOTO       L_apresentacao16
 ;ProjectMemoryGame.c,57 :: 		for (i = 0; i < 6; i++) {
 	INCF       _i+0, 1
+	BTFSC      STATUS+0, 2
+	INCF       _i+1, 1
 ;ProjectMemoryGame.c,62 :: 		}
 	GOTO       L_apresentacao12
 L_apresentacao13:
@@ -334,18 +365,31 @@ _partida:
 ;ProjectMemoryGame.c,70 :: 		void partida() {
 ;ProjectMemoryGame.c,71 :: 		while(step < partidas && situacao) {
 L_partida17:
+	MOVLW      128
+	XORWF      _step+1, 0
+	MOVWF      R0+0
+	MOVLW      128
+	XORWF      _partidas+1, 0
+	SUBWF      R0+0, 0
+	BTFSS      STATUS+0, 2
+	GOTO       L__partida97
 	MOVF       _partidas+0, 0
 	SUBWF      _step+0, 0
+L__partida97:
 	BTFSC      STATUS+0, 0
 	GOTO       L_partida18
 	MOVF       _situacao+0, 0
+	IORWF      _situacao+1, 0
 	BTFSC      STATUS+0, 2
 	GOTO       L_partida18
 L__partida79:
 ;ProjectMemoryGame.c,72 :: 		sequencia[step] = rand() % 4;
 	MOVF       _step+0, 0
 	MOVWF      R0+0
+	MOVF       _step+1, 0
+	MOVWF      R0+1
 	RLF        R0+0, 1
+	RLF        R0+1, 1
 	BCF        R0+0, 0
 	MOVF       R0+0, 0
 	ADDLW      _sequencia+0
@@ -370,8 +414,16 @@ L__partida79:
 ;ProjectMemoryGame.c,75 :: 		for(j = 0; j <= step; j++) {
 	CLRF       _j+0
 L_partida21:
+	MOVLW      128
+	XORWF      _step+1, 0
+	MOVWF      R0+0
+	MOVLW      128
+	SUBWF      R0+0, 0
+	BTFSS      STATUS+0, 2
+	GOTO       L__partida98
 	MOVF       _j+0, 0
 	SUBWF      _step+0, 0
+L__partida98:
 	BTFSS      STATUS+0, 0
 	GOTO       L_partida22
 ;ProjectMemoryGame.c,76 :: 		switch(sequencia[j]) {
@@ -383,12 +435,12 @@ L_partida21:
 	ADDLW      _sequencia+0
 	MOVWF      FLOC__partida+0
 	GOTO       L_partida24
-;ProjectMemoryGame.c,77 :: 		case 0: led_red = 1;    Sound_Play(455, 80);  break; // 182 * 2.5
+;ProjectMemoryGame.c,77 :: 		case 0: led_red = 1;    Sound_Play(1055, 80);  break; // 182 * 2.5
 L_partida26:
 	BSF        PORTB+0, 0
-	MOVLW      199
+	MOVLW      31
 	MOVWF      FARG_Sound_Play_freq_in_hz+0
-	MOVLW      1
+	MOVLW      4
 	MOVWF      FARG_Sound_Play_freq_in_hz+1
 	MOVLW      80
 	MOVWF      FARG_Sound_Play_duration_ms+0
@@ -396,12 +448,12 @@ L_partida26:
 	MOVWF      FARG_Sound_Play_duration_ms+1
 	CALL       _Sound_Play+0
 	GOTO       L_partida25
-;ProjectMemoryGame.c,78 :: 		case 1: led_yellow = 1; Sound_Play(375, 80);  break; // 150 * 2.5
+;ProjectMemoryGame.c,78 :: 		case 1: led_yellow = 1; Sound_Play(975, 80);  break; // 150 * 2.5
 L_partida27:
 	BSF        PORTB+0, 1
-	MOVLW      119
+	MOVLW      207
 	MOVWF      FARG_Sound_Play_freq_in_hz+0
-	MOVLW      1
+	MOVLW      3
 	MOVWF      FARG_Sound_Play_freq_in_hz+1
 	MOVLW      80
 	MOVWF      FARG_Sound_Play_duration_ms+0
@@ -409,12 +461,12 @@ L_partida27:
 	MOVWF      FARG_Sound_Play_duration_ms+1
 	CALL       _Sound_Play+0
 	GOTO       L_partida25
-;ProjectMemoryGame.c,79 :: 		case 2: led_blue = 1;   Sound_Play(300, 80);  break; // 120 * 2.5
+;ProjectMemoryGame.c,79 :: 		case 2: led_blue = 1;   Sound_Play(900, 80);  break; // 120 * 2.5
 L_partida28:
 	BSF        PORTB+0, 3
-	MOVLW      44
+	MOVLW      132
 	MOVWF      FARG_Sound_Play_freq_in_hz+0
-	MOVLW      1
+	MOVLW      3
 	MOVWF      FARG_Sound_Play_freq_in_hz+1
 	MOVLW      80
 	MOVWF      FARG_Sound_Play_duration_ms+0
@@ -422,12 +474,13 @@ L_partida28:
 	MOVWF      FARG_Sound_Play_duration_ms+1
 	CALL       _Sound_Play+0
 	GOTO       L_partida25
-;ProjectMemoryGame.c,80 :: 		case 3: led_green = 1;  Sound_Play(225, 80);  break; // 90 * 2.5
+;ProjectMemoryGame.c,80 :: 		case 3: led_green = 1;  Sound_Play(825, 80);  break; // 90 * 2.5
 L_partida29:
 	BSF        PORTB+0, 2
-	MOVLW      225
+	MOVLW      57
 	MOVWF      FARG_Sound_Play_freq_in_hz+0
-	CLRF       FARG_Sound_Play_freq_in_hz+1
+	MOVLW      3
+	MOVWF      FARG_Sound_Play_freq_in_hz+1
 	MOVLW      80
 	MOVWF      FARG_Sound_Play_duration_ms+0
 	MOVLW      0
@@ -446,10 +499,10 @@ L_partida24:
 	MOVLW      0
 	XORWF      R1+1, 0
 	BTFSS      STATUS+0, 2
-	GOTO       L__partida95
+	GOTO       L__partida99
 	MOVLW      0
 	XORWF      R1+0, 0
-L__partida95:
+L__partida99:
 	BTFSC      STATUS+0, 2
 	GOTO       L_partida26
 	MOVF       FLOC__partida+0, 0
@@ -462,10 +515,10 @@ L__partida95:
 	MOVLW      0
 	XORWF      R1+1, 0
 	BTFSS      STATUS+0, 2
-	GOTO       L__partida96
+	GOTO       L__partida100
 	MOVLW      1
 	XORWF      R1+0, 0
-L__partida96:
+L__partida100:
 	BTFSC      STATUS+0, 2
 	GOTO       L_partida27
 	MOVF       FLOC__partida+0, 0
@@ -478,10 +531,10 @@ L__partida96:
 	MOVLW      0
 	XORWF      R1+1, 0
 	BTFSS      STATUS+0, 2
-	GOTO       L__partida97
+	GOTO       L__partida101
 	MOVLW      2
 	XORWF      R1+0, 0
-L__partida97:
+L__partida101:
 	BTFSC      STATUS+0, 2
 	GOTO       L_partida28
 	MOVF       FLOC__partida+0, 0
@@ -494,10 +547,10 @@ L__partida97:
 	MOVLW      0
 	XORWF      R1+1, 0
 	BTFSS      STATUS+0, 2
-	GOTO       L__partida98
+	GOTO       L__partida102
 	MOVLW      3
 	XORWF      R1+0, 0
-L__partida98:
+L__partida102:
 	BTFSC      STATUS+0, 2
 	GOTO       L_partida29
 L_partida25:
@@ -520,26 +573,26 @@ L_partida30:
 ;ProjectMemoryGame.c,83 :: 		led_red = led_yellow = led_green = led_blue = 0;
 	BCF        PORTB+0, 3
 	BTFSC      PORTB+0, 3
-	GOTO       L__partida99
-	BCF        PORTB+0, 2
-	GOTO       L__partida100
-L__partida99:
-	BSF        PORTB+0, 2
-L__partida100:
-	BTFSC      PORTB+0, 2
-	GOTO       L__partida101
-	BCF        PORTB+0, 1
-	GOTO       L__partida102
-L__partida101:
-	BSF        PORTB+0, 1
-L__partida102:
-	BTFSC      PORTB+0, 1
 	GOTO       L__partida103
-	BCF        PORTB+0, 0
+	BCF        PORTB+0, 2
 	GOTO       L__partida104
 L__partida103:
-	BSF        PORTB+0, 0
+	BSF        PORTB+0, 2
 L__partida104:
+	BTFSC      PORTB+0, 2
+	GOTO       L__partida105
+	BCF        PORTB+0, 1
+	GOTO       L__partida106
+L__partida105:
+	BSF        PORTB+0, 1
+L__partida106:
+	BTFSC      PORTB+0, 1
+	GOTO       L__partida107
+	BCF        PORTB+0, 0
+	GOTO       L__partida108
+L__partida107:
+	BSF        PORTB+0, 0
+L__partida108:
 ;ProjectMemoryGame.c,84 :: 		delay_ms(360); // 600 ? 360
 	MOVLW      4
 	MOVWF      R11+0
@@ -577,23 +630,37 @@ L_partida32:
 	GOTO       L_partida32
 ;ProjectMemoryGame.c,88 :: 		jogada = 0;
 	CLRF       _jogada+0
+	CLRF       _jogada+1
 ;ProjectMemoryGame.c,89 :: 		espera = 0;
 	CLRF       _espera+0
+	CLRF       _espera+1
 ;ProjectMemoryGame.c,92 :: 		while(jogada <= step && situacao) {
 L_partida33:
+	MOVLW      128
+	XORWF      _step+1, 0
+	MOVWF      R0+0
+	MOVLW      128
+	XORWF      _jogada+1, 0
+	SUBWF      R0+0, 0
+	BTFSS      STATUS+0, 2
+	GOTO       L__partida109
 	MOVF       _jogada+0, 0
 	SUBWF      _step+0, 0
+L__partida109:
 	BTFSS      STATUS+0, 0
 	GOTO       L_partida34
 	MOVF       _situacao+0, 0
+	IORWF      _situacao+1, 0
 	BTFSC      STATUS+0, 2
 	GOTO       L_partida34
 L__partida78:
 ;ProjectMemoryGame.c,93 :: 		if(!press_button && !espera) {
 	MOVF       _press_button+0, 0
+	IORWF      _press_button+1, 0
 	BTFSS      STATUS+0, 2
 	GOTO       L_partida39
 	MOVF       _espera+0, 0
+	IORWF      _espera+1, 0
 	BTFSS      STATUS+0, 2
 	GOTO       L_partida39
 L__partida77:
@@ -603,12 +670,14 @@ L__partida77:
 ;ProjectMemoryGame.c,95 :: 		press_button = 1;
 	MOVLW      1
 	MOVWF      _press_button+0
+	MOVLW      0
+	MOVWF      _press_button+1
 ;ProjectMemoryGame.c,96 :: 		led_red = 1;
 	BSF        PORTB+0, 0
-;ProjectMemoryGame.c,97 :: 		Sound_Play(455, 80);
-	MOVLW      199
+;ProjectMemoryGame.c,97 :: 		Sound_Play(1055, 80);
+	MOVLW      31
 	MOVWF      FARG_Sound_Play_freq_in_hz+0
-	MOVLW      1
+	MOVLW      4
 	MOVWF      FARG_Sound_Play_freq_in_hz+1
 	MOVLW      80
 	MOVWF      FARG_Sound_Play_duration_ms+0
@@ -618,7 +687,10 @@ L__partida77:
 ;ProjectMemoryGame.c,98 :: 		if(sequencia[jogada] != 0) situacao = 0;
 	MOVF       _jogada+0, 0
 	MOVWF      R0+0
+	MOVF       _jogada+1, 0
+	MOVWF      R0+1
 	RLF        R0+0, 1
+	RLF        R0+1, 1
 	BCF        R0+0, 0
 	MOVF       R0+0, 0
 	ADDLW      _sequencia+0
@@ -631,13 +703,14 @@ L__partida77:
 	MOVLW      0
 	XORWF      R1+1, 0
 	BTFSS      STATUS+0, 2
-	GOTO       L__partida105
+	GOTO       L__partida110
 	MOVLW      0
 	XORWF      R1+0, 0
-L__partida105:
+L__partida110:
 	BTFSC      STATUS+0, 2
 	GOTO       L_partida41
 	CLRF       _situacao+0
+	CLRF       _situacao+1
 L_partida41:
 ;ProjectMemoryGame.c,99 :: 		}
 	GOTO       L_partida42
@@ -648,12 +721,14 @@ L_partida40:
 ;ProjectMemoryGame.c,101 :: 		press_button = 1;
 	MOVLW      1
 	MOVWF      _press_button+0
+	MOVLW      0
+	MOVWF      _press_button+1
 ;ProjectMemoryGame.c,102 :: 		led_yellow = 1;
 	BSF        PORTB+0, 1
-;ProjectMemoryGame.c,103 :: 		Sound_Play(375, 80);
-	MOVLW      119
+;ProjectMemoryGame.c,103 :: 		Sound_Play(975, 80);
+	MOVLW      207
 	MOVWF      FARG_Sound_Play_freq_in_hz+0
-	MOVLW      1
+	MOVLW      3
 	MOVWF      FARG_Sound_Play_freq_in_hz+1
 	MOVLW      80
 	MOVWF      FARG_Sound_Play_duration_ms+0
@@ -663,7 +738,10 @@ L_partida40:
 ;ProjectMemoryGame.c,104 :: 		if(sequencia[jogada] != 1) situacao = 0;
 	MOVF       _jogada+0, 0
 	MOVWF      R0+0
+	MOVF       _jogada+1, 0
+	MOVWF      R0+1
 	RLF        R0+0, 1
+	RLF        R0+1, 1
 	BCF        R0+0, 0
 	MOVF       R0+0, 0
 	ADDLW      _sequencia+0
@@ -676,13 +754,14 @@ L_partida40:
 	MOVLW      0
 	XORWF      R1+1, 0
 	BTFSS      STATUS+0, 2
-	GOTO       L__partida106
+	GOTO       L__partida111
 	MOVLW      1
 	XORWF      R1+0, 0
-L__partida106:
+L__partida111:
 	BTFSC      STATUS+0, 2
 	GOTO       L_partida44
 	CLRF       _situacao+0
+	CLRF       _situacao+1
 L_partida44:
 ;ProjectMemoryGame.c,105 :: 		}
 	GOTO       L_partida45
@@ -693,12 +772,14 @@ L_partida43:
 ;ProjectMemoryGame.c,107 :: 		press_button = 1;
 	MOVLW      1
 	MOVWF      _press_button+0
+	MOVLW      0
+	MOVWF      _press_button+1
 ;ProjectMemoryGame.c,108 :: 		led_blue = 1;
 	BSF        PORTB+0, 3
-;ProjectMemoryGame.c,109 :: 		Sound_Play(300, 80);
-	MOVLW      44
+;ProjectMemoryGame.c,109 :: 		Sound_Play(900, 80);
+	MOVLW      132
 	MOVWF      FARG_Sound_Play_freq_in_hz+0
-	MOVLW      1
+	MOVLW      3
 	MOVWF      FARG_Sound_Play_freq_in_hz+1
 	MOVLW      80
 	MOVWF      FARG_Sound_Play_duration_ms+0
@@ -708,7 +789,10 @@ L_partida43:
 ;ProjectMemoryGame.c,110 :: 		if(sequencia[jogada] != 2) situacao = 0;
 	MOVF       _jogada+0, 0
 	MOVWF      R0+0
+	MOVF       _jogada+1, 0
+	MOVWF      R0+1
 	RLF        R0+0, 1
+	RLF        R0+1, 1
 	BCF        R0+0, 0
 	MOVF       R0+0, 0
 	ADDLW      _sequencia+0
@@ -721,13 +805,14 @@ L_partida43:
 	MOVLW      0
 	XORWF      R1+1, 0
 	BTFSS      STATUS+0, 2
-	GOTO       L__partida107
+	GOTO       L__partida112
 	MOVLW      2
 	XORWF      R1+0, 0
-L__partida107:
+L__partida112:
 	BTFSC      STATUS+0, 2
 	GOTO       L_partida47
 	CLRF       _situacao+0
+	CLRF       _situacao+1
 L_partida47:
 ;ProjectMemoryGame.c,111 :: 		}
 	GOTO       L_partida48
@@ -738,12 +823,15 @@ L_partida46:
 ;ProjectMemoryGame.c,113 :: 		press_button = 1;
 	MOVLW      1
 	MOVWF      _press_button+0
+	MOVLW      0
+	MOVWF      _press_button+1
 ;ProjectMemoryGame.c,114 :: 		led_green = 1;
 	BSF        PORTB+0, 2
-;ProjectMemoryGame.c,115 :: 		Sound_Play(225, 80);
-	MOVLW      225
+;ProjectMemoryGame.c,115 :: 		Sound_Play(825, 80);
+	MOVLW      57
 	MOVWF      FARG_Sound_Play_freq_in_hz+0
-	CLRF       FARG_Sound_Play_freq_in_hz+1
+	MOVLW      3
+	MOVWF      FARG_Sound_Play_freq_in_hz+1
 	MOVLW      80
 	MOVWF      FARG_Sound_Play_duration_ms+0
 	MOVLW      0
@@ -752,7 +840,10 @@ L_partida46:
 ;ProjectMemoryGame.c,116 :: 		if(sequencia[jogada] != 3) situacao = 0;
 	MOVF       _jogada+0, 0
 	MOVWF      R0+0
+	MOVF       _jogada+1, 0
+	MOVWF      R0+1
 	RLF        R0+0, 1
+	RLF        R0+1, 1
 	BCF        R0+0, 0
 	MOVF       R0+0, 0
 	ADDLW      _sequencia+0
@@ -765,13 +856,14 @@ L_partida46:
 	MOVLW      0
 	XORWF      R1+1, 0
 	BTFSS      STATUS+0, 2
-	GOTO       L__partida108
+	GOTO       L__partida113
 	MOVLW      3
 	XORWF      R1+0, 0
-L__partida108:
+L__partida113:
 	BTFSC      STATUS+0, 2
 	GOTO       L_partida50
 	CLRF       _situacao+0
+	CLRF       _situacao+1
 L_partida50:
 ;ProjectMemoryGame.c,117 :: 		}
 L_partida49:
@@ -780,6 +872,7 @@ L_partida45:
 L_partida42:
 ;ProjectMemoryGame.c,119 :: 		if(press_button) {
 	MOVF       _press_button+0, 0
+	IORWF      _press_button+1, 0
 	BTFSC      STATUS+0, 2
 	GOTO       L_partida51
 ;ProjectMemoryGame.c,120 :: 		delay_ms(120); // 200 ? 120
@@ -799,6 +892,8 @@ L_partida52:
 ;ProjectMemoryGame.c,121 :: 		espera = 1;
 	MOVLW      1
 	MOVWF      _espera+0
+	MOVLW      0
+	MOVWF      _espera+1
 ;ProjectMemoryGame.c,122 :: 		}
 L_partida51:
 ;ProjectMemoryGame.c,123 :: 		}
@@ -806,9 +901,11 @@ L_partida51:
 L_partida39:
 ;ProjectMemoryGame.c,124 :: 		else if(press_button && espera) {
 	MOVF       _press_button+0, 0
+	IORWF      _press_button+1, 0
 	BTFSC      STATUS+0, 2
 	GOTO       L_partida56
 	MOVF       _espera+0, 0
+	IORWF      _espera+1, 0
 	BTFSC      STATUS+0, 2
 	GOTO       L_partida56
 L__partida76:
@@ -824,33 +921,37 @@ L__partida76:
 L__partida75:
 ;ProjectMemoryGame.c,126 :: 		press_button = 0;
 	CLRF       _press_button+0
+	CLRF       _press_button+1
 ;ProjectMemoryGame.c,127 :: 		espera = 0;
 	CLRF       _espera+0
+	CLRF       _espera+1
 ;ProjectMemoryGame.c,128 :: 		jogada++;
 	INCF       _jogada+0, 1
+	BTFSC      STATUS+0, 2
+	INCF       _jogada+1, 1
 ;ProjectMemoryGame.c,129 :: 		led_red = led_yellow = led_blue = led_green = 0;
 	BCF        PORTB+0, 2
 	BTFSC      PORTB+0, 2
-	GOTO       L__partida109
-	BCF        PORTB+0, 3
-	GOTO       L__partida110
-L__partida109:
-	BSF        PORTB+0, 3
-L__partida110:
-	BTFSC      PORTB+0, 3
-	GOTO       L__partida111
-	BCF        PORTB+0, 1
-	GOTO       L__partida112
-L__partida111:
-	BSF        PORTB+0, 1
-L__partida112:
-	BTFSC      PORTB+0, 1
-	GOTO       L__partida113
-	BCF        PORTB+0, 0
 	GOTO       L__partida114
-L__partida113:
-	BSF        PORTB+0, 0
+	BCF        PORTB+0, 3
+	GOTO       L__partida115
 L__partida114:
+	BSF        PORTB+0, 3
+L__partida115:
+	BTFSC      PORTB+0, 3
+	GOTO       L__partida116
+	BCF        PORTB+0, 1
+	GOTO       L__partida117
+L__partida116:
+	BSF        PORTB+0, 1
+L__partida117:
+	BTFSC      PORTB+0, 1
+	GOTO       L__partida118
+	BCF        PORTB+0, 0
+	GOTO       L__partida119
+L__partida118:
+	BSF        PORTB+0, 0
+L__partida119:
 ;ProjectMemoryGame.c,130 :: 		}
 L_partida59:
 ;ProjectMemoryGame.c,131 :: 		}
@@ -875,6 +976,8 @@ L_partida60:
 	GOTO       L_partida60
 ;ProjectMemoryGame.c,135 :: 		step++;
 	INCF       _step+0, 1
+	BTFSC      STATUS+0, 2
+	INCF       _step+1, 1
 ;ProjectMemoryGame.c,136 :: 		delay_ms(480); // 800 ? 480
 	MOVLW      5
 	MOVWF      R11+0
@@ -978,13 +1081,13 @@ _main:
 	MOVWF      FARG_Sound_Init_snd_port+0
 	CLRF       FARG_Sound_Init_snd_pin+0
 	CALL       _Sound_Init+0
-;ProjectMemoryGame.c,166 :: 		while(1){
+;ProjectMemoryGame.c,167 :: 		while(1){
 L_main65:
-;ProjectMemoryGame.c,167 :: 		aguarda_e_gera_semente();     // Gera semente randômica
+;ProjectMemoryGame.c,168 :: 		aguarda_e_gera_semente();     // Gera semente randômica
 	CALL       _aguarda_e_gera_semente+0
-;ProjectMemoryGame.c,168 :: 		apresentacao();               // Animação inicial com delays ajustados
+;ProjectMemoryGame.c,169 :: 		apresentacao();               // Animação inicial com delays ajustados
 	CALL       _apresentacao+0
-;ProjectMemoryGame.c,169 :: 		delay_ms(400);                // Antes: 2000 ? Ajustado para 700ms
+;ProjectMemoryGame.c,170 :: 		delay_ms(400);                // Antes: 2000 ? Ajustado para 700ms
 	MOVLW      5
 	MOVWF      R11+0
 	MOVLW      15
@@ -998,23 +1101,24 @@ L_main67:
 	GOTO       L_main67
 	DECFSZ     R11+0, 1
 	GOTO       L_main67
-;ProjectMemoryGame.c,171 :: 		partida();                    // Rodada principal já ajustada
+;ProjectMemoryGame.c,172 :: 		partida();                    // Rodada principal já ajustada
 	CALL       _partida+0
-;ProjectMemoryGame.c,173 :: 		if(situacao) {                // Jogador venceu rodada
+;ProjectMemoryGame.c,174 :: 		if(situacao) {                // Jogador venceu rodada
 	MOVF       _situacao+0, 0
+	IORWF      _situacao+1, 0
 	BTFSC      STATUS+0, 2
 	GOTO       L_main68
-;ProjectMemoryGame.c,174 :: 		Sound_Play(300, 60);       // Antes: 120ms ? Ajustado para resposta rápida
-	MOVLW      44
+;ProjectMemoryGame.c,175 :: 		Sound_Play(900, 60);       // Antes: 120ms ? Ajustado para resposta rápida
+	MOVLW      132
 	MOVWF      FARG_Sound_Play_freq_in_hz+0
-	MOVLW      1
+	MOVLW      3
 	MOVWF      FARG_Sound_Play_freq_in_hz+1
 	MOVLW      60
 	MOVWF      FARG_Sound_Play_duration_ms+0
 	MOVLW      0
 	MOVWF      FARG_Sound_Play_duration_ms+1
 	CALL       _Sound_Play+0
-;ProjectMemoryGame.c,175 :: 		delay_ms(60);
+;ProjectMemoryGame.c,176 :: 		delay_ms(60);
 	MOVLW      156
 	MOVWF      R12+0
 	MOVLW      215
@@ -1024,17 +1128,17 @@ L_main69:
 	GOTO       L_main69
 	DECFSZ     R12+0, 1
 	GOTO       L_main69
-;ProjectMemoryGame.c,176 :: 		Sound_Play(430, 60);
-	MOVLW      174
+;ProjectMemoryGame.c,177 :: 		Sound_Play(1030, 60);
+	MOVLW      6
 	MOVWF      FARG_Sound_Play_freq_in_hz+0
-	MOVLW      1
+	MOVLW      4
 	MOVWF      FARG_Sound_Play_freq_in_hz+1
 	MOVLW      60
 	MOVWF      FARG_Sound_Play_duration_ms+0
 	MOVLW      0
 	MOVWF      FARG_Sound_Play_duration_ms+1
 	CALL       _Sound_Play+0
-;ProjectMemoryGame.c,177 :: 		delay_ms(60);
+;ProjectMemoryGame.c,178 :: 		delay_ms(60);
 	MOVLW      156
 	MOVWF      R12+0
 	MOVLW      215
@@ -1044,17 +1148,17 @@ L_main70:
 	GOTO       L_main70
 	DECFSZ     R12+0, 1
 	GOTO       L_main70
-;ProjectMemoryGame.c,178 :: 		Sound_Play(620, 60);
-	MOVLW      108
+;ProjectMemoryGame.c,179 :: 		Sound_Play(1220, 60);
+	MOVLW      196
 	MOVWF      FARG_Sound_Play_freq_in_hz+0
-	MOVLW      2
+	MOVLW      4
 	MOVWF      FARG_Sound_Play_freq_in_hz+1
 	MOVLW      60
 	MOVWF      FARG_Sound_Play_duration_ms+0
 	MOVLW      0
 	MOVWF      FARG_Sound_Play_duration_ms+1
 	CALL       _Sound_Play+0
-;ProjectMemoryGame.c,179 :: 		delay_ms(60);
+;ProjectMemoryGame.c,180 :: 		delay_ms(60);
 	MOVLW      156
 	MOVWF      R12+0
 	MOVLW      215
@@ -1064,43 +1168,61 @@ L_main71:
 	GOTO       L_main71
 	DECFSZ     R12+0, 1
 	GOTO       L_main71
-;ProjectMemoryGame.c,181 :: 		step = 0; jogada = 0; situacao = 1;
+;ProjectMemoryGame.c,182 :: 		step = 0; jogada = 0; situacao = 1;
 	CLRF       _step+0
+	CLRF       _step+1
 	CLRF       _jogada+0
+	CLRF       _jogada+1
 	MOVLW      1
 	MOVWF      _situacao+0
-;ProjectMemoryGame.c,182 :: 		press_button = 0; espera = 0;
+	MOVLW      0
+	MOVWF      _situacao+1
+;ProjectMemoryGame.c,183 :: 		press_button = 0; espera = 0;
 	CLRF       _press_button+0
+	CLRF       _press_button+1
 	CLRF       _espera+0
-;ProjectMemoryGame.c,183 :: 		partidas++;
+	CLRF       _espera+1
+;ProjectMemoryGame.c,184 :: 		partidas++;
 	INCF       _partidas+0, 1
-;ProjectMemoryGame.c,184 :: 		reseta_led();
+	BTFSC      STATUS+0, 2
+	INCF       _partidas+1, 1
+;ProjectMemoryGame.c,185 :: 		reseta_led();
 	CALL       _reseta_led+0
-;ProjectMemoryGame.c,186 :: 		if(partidas >= 30) partidas = 30;
+;ProjectMemoryGame.c,187 :: 		if(partidas >= 30) partidas = 30;
+	MOVLW      128
+	XORWF      _partidas+1, 0
+	MOVWF      R0+0
+	MOVLW      128
+	SUBWF      R0+0, 0
+	BTFSS      STATUS+0, 2
+	GOTO       L__main123
 	MOVLW      30
 	SUBWF      _partidas+0, 0
+L__main123:
 	BTFSS      STATUS+0, 0
 	GOTO       L_main72
 	MOVLW      30
 	MOVWF      _partidas+0
+	MOVLW      0
+	MOVWF      _partidas+1
 L_main72:
-;ProjectMemoryGame.c,187 :: 		}
+;ProjectMemoryGame.c,188 :: 		}
 	GOTO       L_main73
 L_main68:
-;ProjectMemoryGame.c,189 :: 		reseta_led();
+;ProjectMemoryGame.c,190 :: 		reseta_led();
 	CALL       _reseta_led+0
-;ProjectMemoryGame.c,190 :: 		led_red = 1;
+;ProjectMemoryGame.c,191 :: 		led_red = 1;
 	BSF        PORTB+0, 0
-;ProjectMemoryGame.c,191 :: 		Sound_Play(300, 250);      // Antes: 400ms ? Ajustado para 180ms
-	MOVLW      44
+;ProjectMemoryGame.c,192 :: 		Sound_Play(900, 250);      // Antes: 400ms ? Ajustado para 180ms
+	MOVLW      132
 	MOVWF      FARG_Sound_Play_freq_in_hz+0
-	MOVLW      1
+	MOVLW      3
 	MOVWF      FARG_Sound_Play_freq_in_hz+1
 	MOVLW      250
 	MOVWF      FARG_Sound_Play_duration_ms+0
 	CLRF       FARG_Sound_Play_duration_ms+1
 	CALL       _Sound_Play+0
-;ProjectMemoryGame.c,192 :: 		delay_ms(250);            // Antes: 600ms ? Ajustado para 250ms
+;ProjectMemoryGame.c,193 :: 		delay_ms(250);            // Antes: 600ms ? Ajustado para 250ms
 	MOVLW      3
 	MOVWF      R11+0
 	MOVLW      138
@@ -1116,17 +1238,17 @@ L_main74:
 	GOTO       L_main74
 	NOP
 	NOP
-;ProjectMemoryGame.c,193 :: 		led_red = 0;
+;ProjectMemoryGame.c,194 :: 		led_red = 0;
 	BCF        PORTB+0, 0
-;ProjectMemoryGame.c,194 :: 		reseta_variavel();
+;ProjectMemoryGame.c,195 :: 		reseta_variavel();
 	CALL       _reseta_variavel+0
-;ProjectMemoryGame.c,195 :: 		reseta_led();
+;ProjectMemoryGame.c,196 :: 		reseta_led();
 	CALL       _reseta_led+0
-;ProjectMemoryGame.c,196 :: 		}
-L_main73:
 ;ProjectMemoryGame.c,197 :: 		}
-	GOTO       L_main65
+L_main73:
 ;ProjectMemoryGame.c,198 :: 		}
+	GOTO       L_main65
+;ProjectMemoryGame.c,199 :: 		}
 L_end_main:
 	GOTO       $+0
 ; end of _main

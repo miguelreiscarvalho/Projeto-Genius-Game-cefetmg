@@ -14,10 +14,10 @@
 
 // Variáveis
 int sequencia[20];
-char step = 0, jogada = 0, situacao = 1;
-char press_button = 0, espera = 0;
-char i;
-char partidas = 3;
+int step = 0, jogada = 0, situacao = 1;
+int press_button = 0, espera = 0;
+int i;
+int partidas = 3;
 
 void reseta_variavel() {
     step = 0; jogada = 0; situacao = 1;
@@ -29,34 +29,34 @@ void apresentacao() {
     delay_ms(80);
 
     led_red = 1; led_yellow = 1; led_green = 0; led_blue = 0;
-    Sound_Play(330, 140); delay_ms(140);
+    Sound_Play(930, 140); delay_ms(140);
 
     led_red = 0; led_yellow = 0; led_green = 1; led_blue = 1;
-    Sound_Play(175, 180); delay_ms(180);
+    Sound_Play(775, 180); delay_ms(180);
 
     led_red = 1; led_yellow = 1; led_green = 1; led_blue = 1;
-    Sound_Play(450, 200); delay_ms(200);
+    Sound_Play(1050, 200); delay_ms(200);
 
     led_red = 0; led_yellow = 0; led_green = 0; led_blue = 0;
     delay_ms(80);
 
     for (i = 0; i < 5; i++) {
         led_red = 1; led_green = 0;
-        Sound_Play(103, 35); delay_ms(35);
+        Sound_Play(703, 35); delay_ms(35);
 
         led_red = 0; led_blue = 1;
-        Sound_Play(212, 35); delay_ms(35);
+        Sound_Play(812, 35); delay_ms(35);
 
         led_blue = 0; led_yellow = 1;
-        Sound_Play(290, 35); delay_ms(35);
+        Sound_Play(890, 35); delay_ms(35);
 
         led_yellow = 0; led_green = 1;
-        Sound_Play(455, 35); delay_ms(35);
+        Sound_Play(1055, 35); delay_ms(35);
     }
 
     for (i = 0; i < 6; i++) {
         led_red = led_yellow = led_green = led_blue = 1;
-        Sound_Play(175, 80); delay_ms(20);
+        Sound_Play(775, 80); delay_ms(20);
         led_red = led_yellow = led_green = led_blue = 0;
         delay_ms(60);
     }
@@ -74,10 +74,10 @@ void partida() {
         // Mostra sequência atual
         for(j = 0; j <= step; j++) {
             switch(sequencia[j]) {
-                case 0: led_red = 1;    Sound_Play(455, 80);  break; // 182 * 2.5
-                case 1: led_yellow = 1; Sound_Play(375, 80);  break; // 150 * 2.5
-                case 2: led_blue = 1;   Sound_Play(300, 80);  break; // 120 * 2.5
-                case 3: led_green = 1;  Sound_Play(225, 80);  break; // 90 * 2.5
+                case 0: led_red = 1;    Sound_Play(1055, 80);  break; // 182 * 2.5
+                case 1: led_yellow = 1; Sound_Play(975, 80);  break; // 150 * 2.5
+                case 2: led_blue = 1;   Sound_Play(900, 80);  break; // 120 * 2.5
+                case 3: led_green = 1;  Sound_Play(825, 80);  break; // 90 * 2.5
             }
             delay_ms(480); // 800 ? 480
             led_red = led_yellow = led_green = led_blue = 0;
@@ -94,25 +94,25 @@ void partida() {
                 if(botao_red) {
                     press_button = 1;
                     led_red = 1;
-                    Sound_Play(455, 80);
+                    Sound_Play(1055, 80);
                     if(sequencia[jogada] != 0) situacao = 0;
                 }
                 else if(botao_yellow) {
                     press_button = 1;
                     led_yellow = 1;
-                    Sound_Play(375, 80);
+                    Sound_Play(975, 80);
                     if(sequencia[jogada] != 1) situacao = 0;
                 }
                 else if(botao_blue) {
                     press_button = 1;
                     led_blue = 1;
-                    Sound_Play(300, 80);
+                    Sound_Play(900, 80);
                     if(sequencia[jogada] != 2) situacao = 0;
                 }
                 else if(botao_green) {
                     press_button = 1;
                     led_green = 1;
-                    Sound_Play(225, 80);
+                    Sound_Play(825, 80);
                     if(sequencia[jogada] != 3) situacao = 0;
                 }
 
@@ -162,6 +162,7 @@ void main() {
     PORTB = 0;
     PORTA = 1;
     Sound_Init(&PORTA, 0);
+    
 
     while(1){
         aguarda_e_gera_semente();     // Gera semente randômica
@@ -171,11 +172,11 @@ void main() {
         partida();                    // Rodada principal já ajustada
 
         if(situacao) {                // Jogador venceu rodada
-            Sound_Play(300, 60);       // Antes: 120ms ? Ajustado para resposta rápida
+            Sound_Play(900, 60);       // Antes: 120ms ? Ajustado para resposta rápida
             delay_ms(60);
-            Sound_Play(430, 60);
+            Sound_Play(1030, 60);
             delay_ms(60);
-            Sound_Play(620, 60);
+            Sound_Play(1220, 60);
             delay_ms(60);
 
             step = 0; jogada = 0; situacao = 1;
@@ -188,7 +189,7 @@ void main() {
         else {                        // Jogador errou rodada
             reseta_led();
             led_red = 1;
-            Sound_Play(300, 250);      // Antes: 400ms ? Ajustado para 180ms
+            Sound_Play(900, 250);      // Antes: 400ms ? Ajustado para 180ms
             delay_ms(250);            // Antes: 600ms ? Ajustado para 250ms
             led_red = 0;
             reseta_variavel();

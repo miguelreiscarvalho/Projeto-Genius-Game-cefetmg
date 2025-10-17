@@ -1,0 +1,7 @@
+[PROJECTS]
+Count=3
+Project0=..\..\ProjectMemoryGame.mcppi
+Project1=..\Teste Buzzer\MyProject.mcppi
+Project2=TesteComandos.mcppi
+[ActiveProject]
+Index=2

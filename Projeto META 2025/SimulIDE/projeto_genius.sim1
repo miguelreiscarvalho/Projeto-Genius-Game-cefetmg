@@ -2,7 +2,7 @@
 
 <item itemtype="Rail" CircId="Rail-1" mainComp="false" ShowProp="Voltage" Show_id="false" Show_Val="true" Pos="-316,-216" rotation="90" hflip="1" vflip="1" label="Rail-1" idLabPos="-5,-10" labelrot="-90" valLabPos="-12,6" valLabRot="-90" Voltage="5 V" />
 
-<item itemtype="MCU" CircId="p16F628-4" mainComp="false" Show_id="true" Show_Val="false" Pos="-224,-148" rotation="0" hflip="1" vflip="1" label="p16F628-4" idLabPos="0,-20" labelrot="0" valLabPos="-16,20" valLabRot="0" Frequency="20 MHz" Program="../ProjectMemoryGame.hex" Auto_Load="true" saveEepr="false" Rst_enabled="true" Ext_Osc="true" Wdt_enabled="false" Clk_Out="false" MainMcu="true" SerialMon="-1" />
+<item itemtype="MCU" CircId="p16F628-4" mainComp="false" Show_id="true" Show_Val="false" Pos="-228,-148" rotation="0" hflip="1" vflip="1" label="p16F628-4" idLabPos="0,-20" labelrot="0" valLabPos="-16,20" valLabRot="0" Frequency="8 MHz" Program="../Testes/Teste Buzzer/MyProject.hex" Auto_Load="true" saveEepr="false" Rst_enabled="true" Ext_Osc="true" Wdt_enabled="false" Clk_Out="false" MainMcu="true" SerialMon="-1" />
 
 <item itemtype="AudioOut" CircId="AudioOut-5" mainComp="false" ShowProp="Impedance" Show_id="false" Show_Val="true" Pos="88,-128" rotation="0" hflip="1" vflip="1" label="AudioOut-5" idLabPos="-20,-36" labelrot="0" valLabPos="-7.01202,17.1913" valLabRot="0" Buzzer="false" Impedance="8 Ω" Frequency="80000 kHz" />
 
@@ -76,19 +76,17 @@
 
 <item itemtype="Node" CircId="Node-63" mainComp="false" Pos="-316,-168" />
 
-<item itemtype="Connector" uid="Connector-3" startpinid="p16F628-4-PORTA0" endpinid="AudioOut-5-lPin" pointList="-184,-132,72,-132,72,-136" />
+<item itemtype="Connector" uid="Connector-3" startpinid="p16F628-4-PORTA0" endpinid="AudioOut-5-lPin" pointList="-188,-132,72,-132,72,-136" />
 
-<item itemtype="Connector" uid="Connector-12" startpinid="p16F628-4-PORTB4" endpinid="Push-18-pinP0" pointList="-184,-76,-184,28,-144,28" />
+<item itemtype="Connector" uid="Connector-12" startpinid="p16F628-4-PORTB4" endpinid="Push-18-pinP0" pointList="-188,-76,-188,28,-144,28" />
 
 <item itemtype="Connector" uid="Connector-17" startpinid="Push-18-switch0pinN" endpinid="Resistor-15-lPin" pointList="-112,28,-112,76" />
 
-<item itemtype="Connector" uid="Connector-19" startpinid="Push-20-switch0pinN" endpinid="Resistor-17-lPin" pointList="-12,28,-12,76" />
+<item itemtype="Connector" uid="Connector-21" startpinid="Push-19-pinP0" endpinid="p16F628-4-PORTB5" pointList="-96,28,-96,-84,-188,-84" />
 
-<item itemtype="Connector" uid="Connector-21" startpinid="Push-19-pinP0" endpinid="p16F628-4-PORTB5" pointList="-96,28,-96,-84,-184,-84" />
+<item itemtype="Connector" uid="Connector-22" startpinid="Push-20-pinP0" endpinid="p16F628-4-PORTB6" pointList="-44,28,-44,-92,-188,-92" />
 
-<item itemtype="Connector" uid="Connector-22" startpinid="Push-20-pinP0" endpinid="p16F628-4-PORTB6" pointList="-44,28,-44,-92,-184,-92" />
-
-<item itemtype="Connector" uid="Connector-23" startpinid="Push-21-pinP0" endpinid="p16F628-4-PORTB7" pointList="8,28,8,-100,-184,-100" />
+<item itemtype="Connector" uid="Connector-23" startpinid="Push-21-pinP0" endpinid="p16F628-4-PORTB7" pointList="8,28,8,-100,-188,-100" />
 
 <item itemtype="Connector" uid="Connector-29" startpinid="Resistor-16-rPin" endpinid="Node-23-1" pointList="40,108,40,132" />
 
@@ -102,13 +100,13 @@
 
 <item itemtype="Connector" uid="Connector-40" startpinid="Node-26-2" endpinid="Node-25-0" pointList="-112,132,-64,132" />
 
-<item itemtype="Connector" uid="Connector-64" startpinid="Tunnel-36-pin" endpinid="p16F628-4-PORTB0" pointList="-248,-100,-232,-100" />
+<item itemtype="Connector" uid="Connector-64" startpinid="Tunnel-36-pin" endpinid="p16F628-4-PORTB0" pointList="-248,-100,-236,-100" />
 
-<item itemtype="Connector" uid="Connector-65" startpinid="Tunnel-37-pin" endpinid="p16F628-4-PORTB1" pointList="-248,-92,-232,-92" />
+<item itemtype="Connector" uid="Connector-65" startpinid="Tunnel-37-pin" endpinid="p16F628-4-PORTB1" pointList="-248,-92,-236,-92" />
 
-<item itemtype="Connector" uid="Connector-66" startpinid="Tunnel-38-pin" endpinid="p16F628-4-PORTB2" pointList="-248,-84,-232,-84" />
+<item itemtype="Connector" uid="Connector-66" startpinid="Tunnel-38-pin" endpinid="p16F628-4-PORTB2" pointList="-248,-84,-236,-84" />
 
-<item itemtype="Connector" uid="Connector-67" startpinid="Tunnel-39-pin" endpinid="p16F628-4-PORTB3" pointList="-248,-76,-232,-76" />
+<item itemtype="Connector" uid="Connector-67" startpinid="Tunnel-39-pin" endpinid="p16F628-4-PORTB3" pointList="-248,-76,-236,-76" />
 
 <item itemtype="Connector" uid="Connector-75" startpinid="Ground-22-Gnd" endpinid="Node-26-0" pointList="-184,132,-112,132" />
 
@@ -130,9 +128,7 @@
 
 <item itemtype="Connector" uid="Connector-31" startpinid="Node-23-2" endpinid="AudioOut-5-rPin" pointList="40,132,72,132,72,-128" />
 
-<item itemtype="Connector" uid="Connector-18" startpinid="Push-19-switch0pinN" endpinid="Resistor-14-lPin" pointList="-64,28,-64,76" />
-
-<item itemtype="Connector" uid="Connector-108" startpinid="Switch-58-switch0pinN" endpinid="p16F628-4-PORTA5" pointList="-268,-156,-268,-116,-232,-116" />
+<item itemtype="Connector" uid="Connector-108" startpinid="Switch-58-switch0pinN" endpinid="p16F628-4-PORTA5" pointList="-268,-156,-268,-116,-236,-116" />
 
 <item itemtype="Connector" uid="Connector-109" startpinid="Resistor-59-lPin" endpinid="Node-60-1" pointList="-292,-184,-316,-184" />
 
@@ -151,5 +147,9 @@
 <item itemtype="Connector" uid="Connector-118" startpinid="Node-63-2" endpinid="Switch-58-pinP0" pointList="-316,-168,-316,-156,-300,-156" />
 
 <item itemtype="Connector" uid="Connector-20" startpinid="Push-21-switch0pinN" endpinid="Resistor-16-lPin" pointList="40,28,40,76" />
+
+<item itemtype="Connector" uid="Connector-18" startpinid="Push-19-switch0pinN" endpinid="Resistor-14-lPin" pointList="-64,28,-64,76" />
+
+<item itemtype="Connector" uid="Connector-19" startpinid="Push-20-switch0pinN" endpinid="Resistor-17-lPin" pointList="-12,28,-12,76" />
 
 </circuit>
